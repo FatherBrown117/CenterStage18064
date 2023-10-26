@@ -24,6 +24,9 @@ public class TestTeleop extends LinearOpMode {
     private CRServo leftIntake = null;
     private CRServo rightIntake = null;
     private CRServo dread = null;
+    private CRServo leftclaw = null;
+    private CRServo rightclaw = null;
+
 
 
     /*
@@ -67,6 +70,8 @@ public class TestTeleop extends LinearOpMode {
         leftIntake = hardwareMap.get(CRServo.class,"leftIntake");
         rightIntake = hardwareMap.get(CRServo.class,"rightIntake");
         dread = hardwareMap.get(CRServo.class,"dread");
+        leftclaw = hardwareMap.get(CRServo.class,"leftclaw");
+        rightclaw = hardwareMap.get(CRServo.class,"rightclaw");
 
         leftFront.setDirection(DcMotor.Direction.REVERSE);
         rightFront.setDirection(DcMotor.Direction.FORWARD);
@@ -101,6 +106,8 @@ public class TestTeleop extends LinearOpMode {
             boolean G1leftBumper = gamepad1.left_bumper;
             boolean G1UD = gamepad1.dpad_up;   // up dpad
             boolean G1DD = gamepad1.dpad_down; //Down dpad
+            boolean G1RD = gamepad1.dpad_right;// right dpad
+            boolean G1LD = gamepad1.dpad_left; //left dpad
             boolean G1Y = gamepad1.y;
             boolean G1B = gamepad1.b;
             boolean G1X = gamepad1.x;
@@ -182,6 +189,12 @@ public class TestTeleop extends LinearOpMode {
             } else if (G1DD) { // Linear: Moves down
                 rlift.setPower(-1);
                 llift.setPower(-1);
+            } else if (G1RD) {
+                leftclaw.setPower(1);
+                rightclaw.setPower(-1);
+            } else if (G1LD) {
+                leftclaw.setPower(-1);
+                rightclaw.setPower(1);
             } else {
                 leftFront.setPower(0);
                 rightFront.setPower(0);
@@ -193,6 +206,8 @@ public class TestTeleop extends LinearOpMode {
                 pattern = RevBlinkinLedDriver.BlinkinPattern.BLACK;
                 displayPattern();
                 gamepadRateLimit.reset();
+                rightclaw.setPower(0);
+                leftclaw.setPower(0);
             }
 
 
