@@ -21,11 +21,12 @@ public class TestTeleop extends LinearOpMode {
     private DcMotor rightRear = null;
     private DcMotor rlift = null;
     private DcMotor llift = null;
+    private DcMotor vector = null;
     private CRServo leftIntake = null;
     private CRServo rightIntake = null;
     private CRServo dread = null;
-    private CRServo leftclaw = null;
-    private CRServo rightclaw = null;
+    private Servo leftclaw = null;
+    private Servo rightclaw = null;
 
 
 
@@ -70,8 +71,9 @@ public class TestTeleop extends LinearOpMode {
         leftIntake = hardwareMap.get(CRServo.class,"leftIntake");
         rightIntake = hardwareMap.get(CRServo.class,"rightIntake");
         dread = hardwareMap.get(CRServo.class,"dread");
-        leftclaw = hardwareMap.get(CRServo.class,"leftclaw");
-        rightclaw = hardwareMap.get(CRServo.class,"rightclaw");
+        leftclaw = hardwareMap.get(Servo.class,"leftclaw");
+        rightclaw = hardwareMap.get(Servo.class,"rightclaw");
+        vector = hardwareMap.get(DcMotor.class,"vector");
 
         leftFront.setDirection(DcMotor.Direction.REVERSE);
         rightFront.setDirection(DcMotor.Direction.FORWARD);
@@ -79,6 +81,7 @@ public class TestTeleop extends LinearOpMode {
         rightRear.setDirection(DcMotor.Direction.FORWARD);
         rlift.setDirection(DcMotor.Direction.FORWARD);
         llift.setDirection(DcMotor.Direction.REVERSE);
+        vector.setDirection(DcMotor.Direction.FORWARD);
         displayKind = Blink.DisplayKind.AUTO;
 
         blinkinLedDriver = hardwareMap.get(RevBlinkinLedDriver.class, "blinkin");
@@ -114,9 +117,16 @@ public class TestTeleop extends LinearOpMode {
             boolean G1A = gamepad1.a;
             double G1RT = gamepad1.right_trigger;
             double G1LT = gamepad1.left_trigger;
+            //Second controller (Intake/linear slide)
+            double G2leftStickY = gamepad2.left_stick_y;
+            boolean G2A = gamepad2.a;
+            boolean G2UD = gamepad2.dpad_up; // up dpad
+            boolean G2DD = gamepad2.dpad_down; // down dpad
+            boolean G2RD = gamepad2.dpad_right;// right dpad
+            boolean G2LD = gamepad2.dpad_left; //left dpad
 
 
-            //Driving movements
+            //Driving movements (First controller)
 
             if (G1rightStickX > 0) {  // Clockwise
                 leftFront.setPower(0.5);
@@ -156,46 +166,51 @@ public class TestTeleop extends LinearOpMode {
                 pattern = RevBlinkinLedDriver.BlinkinPattern.SHOT_BLUE;
                 displayPattern();
                 gamepadRateLimit.reset();
-            } else if (G1A) { // Outtake
+            } else if (G2A) { // Outtake the Intake (second controller)
                 pattern = RevBlinkinLedDriver.BlinkinPattern.SHOT_RED;
                 displayPattern();
                 gamepadRateLimit.reset();
                 leftIntake.setPower(1);
                 rightIntake.setPower(-1);
-                //dread.setPower(1);
-            } else if (G1leftBumper) { // Diagonal: Upper left
+                //dread.setPower(1); in case
+            } else if (G1leftBumper) { // Diagonal: Upper left (First controller)
                 leftFront.setPower(-0.5);
                 rightFront.setPower(0);
                 leftRear.setPower(0);
                 rightRear.setPower(-.5);
-            } else if (G1B) { // Diagonal: Lower Right
+            } else if (G1B) { // Diagonal: Lower Right (First controller)
                 leftFront.setPower(.5);
                 rightFront.setPower(-.5);
                 leftRear.setPower(-.5);
                 rightRear.setPower(.5);
-            } else if (G1X) { // Diagonal: Upper Right
+            } else if (G1X) { // Diagonal: Upper Right (First controller)
                 leftFront.setPower(-.5);
                 rightFront.setPower(.5);
                 leftRear.setPower(.5);
                 rightRear.setPower(-.5);
-            } else if (G1rightBumper) { // Diagonal: Lower left
+            } else if (G1rightBumper) { // Diagonal: Lower left (First controller)
                 leftFront.setPower(0);
                 rightFront.setPower(-.5);
                 leftRear.setPower(-.5);
                 rightRear.setPower(0);
-            } else if (G1UD) { // Linear: Moves up
+                //moving into claw and linear slides (second controller)
+            } else if (G2UD) { // Linear pillars move up (second controller)
                 rlift.setPower(1);
                 llift.setPower(1);
-            } else if (G1DD) { // Linear: Moves down
+            } else if (G2DD) { // Linear pillars move down (second controller)
                 rlift.setPower(-1);
                 llift.setPower(-1);
-            } else if (G1RD) {
-                leftclaw.setPower(1);
-                rightclaw.setPower(-1);
-            } else if (G1LD) {
-                leftclaw.setPower(-1);
-                rightclaw.setPower(1);
-            } else {
+            } else if (G2leftStickY > 0) { //linear SLIDE moves up (second controller)
+                vector.setPower(.5);
+            } else if (G2leftStickY < 0) { //linear SLIDE moves down (second controller)
+                vector.setPower(-.5);
+            } else if (G2RD) { //outtake moves inward (second controller)
+                leftclaw.setPosition(10);
+                rightclaw.setPosition(-10);
+            } else if (G2LD) { //outtake moves outward (second controller)
+                leftclaw.setPosition(10);
+                rightclaw.setPosition(-10);
+            } else { //STOP IN THE NAME OF THE LAW!
                 leftFront.setPower(0);
                 rightFront.setPower(0);
                 leftRear.setPower(0);
@@ -206,8 +221,9 @@ public class TestTeleop extends LinearOpMode {
                 pattern = RevBlinkinLedDriver.BlinkinPattern.BLACK;
                 displayPattern();
                 gamepadRateLimit.reset();
-                rightclaw.setPower(0);
-                leftclaw.setPower(0);
+                rlift.setPower(0);
+                llift.setPower(0);
+                vector.setPower(0);
             }
 
 
