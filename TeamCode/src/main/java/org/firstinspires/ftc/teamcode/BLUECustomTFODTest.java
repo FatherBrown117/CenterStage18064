@@ -93,6 +93,19 @@ public class BLUECustomTFODTest extends LinearOpMode {
                 // Push telemetry to the Driver Station.
                 telemetry.update();
 
+                if (spikeLocation() == 3) {
+                    //CODE TO DEPOSIT PRELOAD ON RIGHT SPIKE MARK
+                    //ORIENT ROBOT
+                } else if (spikeLocation() == 2) {
+                    //CODE TO DEPOSIT PRELOAD ON CENTER SPIKE MARK
+                    //ORIENT ROBOT
+                } else {
+                    //CODE TO DEPOSIT PRELOAD ON LEFT SPIKE MARK
+                    //ORIENT ROBOT
+                }
+
+                //DRIVE ROBOT TO PARK
+
                 // Save CPU resources; can resume streaming when needed.
                 if (gamepad1.dpad_down) {
                     visionPortal.stopStreaming();
@@ -195,4 +208,27 @@ public class BLUECustomTFODTest extends LinearOpMode {
 
     }   // end method telemetryTfod()
 
+    private double spikeLocation() {
+
+        List<Recognition> currentRecognitions = tfod.getRecognitions();
+
+        double location = 1;
+        
+        for (Recognition recognition : currentRecognitions) {
+            
+            if (recognition.getLeft() <= 350) {
+                location = 2;
+                telemetry.addData("Spike mark location: ", "center");
+            } else if (recognition.getLeft() > 350) {
+                location = 3;
+                telemetry.addData("Spike mark location: ", "right");
+            } else {
+                location = 1;
+                telemetry.addData("Spike mark location: ", "left");
+            }
+            
+        }   // end for() loop
+
+        return location;
+    }
 }   // end class
