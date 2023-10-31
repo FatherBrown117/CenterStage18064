@@ -42,7 +42,7 @@ public class BasicAuto extends LinearOpMode {
 
         waitForStart();
         while(opModeIsActive()) {
-
+            sleep(100);
 
         }
 

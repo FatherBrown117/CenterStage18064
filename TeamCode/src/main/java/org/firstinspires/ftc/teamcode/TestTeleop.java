@@ -20,12 +20,12 @@ public class TestTeleop extends LinearOpMode {
     private DcMotor rightRear = null;
     private DcMotor rLift = null;
     private DcMotor lLift = null;
-    private DcMotor vector = null;
+    //private DcMotor vector = null;
     private CRServo leftIntake = null;
     private CRServo rightIntake = null;
     private CRServo dread = null;
-    private Servo leftclaw = null;
-    private Servo rightclaw = null;
+    private Servo leftPull = null;
+    private Servo rightPull = null;
 
 
 
@@ -70,9 +70,10 @@ public class TestTeleop extends LinearOpMode {
         leftIntake = hardwareMap.get(CRServo.class,"leftIntake");
         rightIntake = hardwareMap.get(CRServo.class,"rightIntake");
         dread = hardwareMap.get(CRServo.class,"dread");
-        leftclaw = hardwareMap.get(Servo.class,"leftclaw");
-        rightclaw = hardwareMap.get(Servo.class,"rightclaw");
-        vector = hardwareMap.get(DcMotor.class,"vector");
+        //vector = hardwareMap.get(DcMotor.class,"vector");
+
+        rightPull = hardwareMap.get(Servo.class, "rightPull");
+        leftPull = hardwareMap.get(Servo.class, "leftPull");
 
         leftFront.setDirection(DcMotor.Direction.REVERSE);
         rightFront.setDirection(DcMotor.Direction.FORWARD);
@@ -80,7 +81,7 @@ public class TestTeleop extends LinearOpMode {
         rightRear.setDirection(DcMotor.Direction.FORWARD);
         rLift.setDirection(DcMotor.Direction.FORWARD);
         lLift.setDirection(DcMotor.Direction.REVERSE);
-        vector.setDirection(DcMotor.Direction.FORWARD);
+        //vector.setDirection(DcMotor.Direction.FORWARD);
         displayKind = Blink.DisplayKind.AUTO;
 
         blinkinLedDriver = hardwareMap.get(RevBlinkinLedDriver.class, "blinkin");
@@ -200,15 +201,15 @@ public class TestTeleop extends LinearOpMode {
                 rLift.setPower(-1);
                 lLift.setPower(-1);
             } else if (G2leftStickY > 0) { //linear SLIDE moves up (second controller)
-                vector.setPower(.5);
+                //vector.setPower(.5);
             } else if (G2leftStickY < 0) { //linear SLIDE moves down (second controller)
-                vector.setPower(-.5);
+                //vector.setPower(-.5);
             } else if (G2RD) { //outtake moves inward (second controller)
-                leftclaw.setPosition(10);
-                rightclaw.setPosition(-10);
+                leftPull.setPosition(10);
+                rightPull.setPosition(-10);
             } else if (G2LD) { //outtake moves outward (second controller)
-                leftclaw.setPosition(10);
-                rightclaw.setPosition(-10);
+                leftPull.setPosition(10);
+                rightPull.setPosition(-10);
             } else { //STOP IN THE NAME OF THE LAW!
                 leftFront.setPower(0);
                 rightFront.setPower(0);
@@ -222,7 +223,7 @@ public class TestTeleop extends LinearOpMode {
                 gamepadRateLimit.reset();
                 rLift.setPower(0);
                 lLift.setPower(0);
-                vector.setPower(0);
+                //vector.setPower(0);
             }
 
 
