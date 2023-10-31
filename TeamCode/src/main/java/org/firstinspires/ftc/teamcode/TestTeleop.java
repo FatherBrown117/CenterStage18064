@@ -4,7 +4,7 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.hardware.CRServo;
-import com.qualcomm.hardware.rev.RevBlinkinLedDriver;
+//import com.qualcomm.hardware.rev.RevBlinkinLedDriver;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.robotcore.internal.system.Deadline;
@@ -40,8 +40,8 @@ public class TestTeleop extends LinearOpMode {
     private final static int GAMEPAD_LOCKOUT = 500;
 
 
-    RevBlinkinLedDriver blinkinLedDriver;
-    RevBlinkinLedDriver.BlinkinPattern pattern;
+    //RevBlinkinLedDriver blinkinLedDriver;
+    //RevBlinkinLedDriver.BlinkinPattern pattern;
 
     Telemetry.Item patternName;
     Telemetry.Item display;
@@ -84,12 +84,12 @@ public class TestTeleop extends LinearOpMode {
         //vector.setDirection(DcMotor.Direction.FORWARD);
         displayKind = Blink.DisplayKind.AUTO;
 
-        blinkinLedDriver = hardwareMap.get(RevBlinkinLedDriver.class, "blinkin");
-        pattern = RevBlinkinLedDriver.BlinkinPattern.CP1_BREATH_FAST;
-        blinkinLedDriver.setPattern(pattern);
+        //blinkinLedDriver = hardwareMap.get(RevBlinkinLedDriver.class, "blinkin");
+        //pattern = RevBlinkinLedDriver.BlinkinPattern.CP1_BREATH_FAST;
+        //blinkinLedDriver.setPattern(pattern);
 
         display = telemetry.addData("Display Kind: ", displayKind.toString());
-        patternName = telemetry.addData("Pattern: ", pattern.toString());
+        //patternName = telemetry.addData("Pattern: ", pattern.toString());
 
         ledCycleDeadline = new Deadline(LED_PERIOD, TimeUnit.SECONDS);
         gamepadRateLimit = new Deadline(GAMEPAD_LOCKOUT, TimeUnit.MILLISECONDS);
@@ -163,11 +163,11 @@ public class TestTeleop extends LinearOpMode {
                 leftIntake.setPower(-1);
                 rightIntake.setPower(1);
                 dread.setPower(-1);
-                pattern = RevBlinkinLedDriver.BlinkinPattern.SHOT_BLUE;
+                //pattern = RevBlinkinLedDriver.BlinkinPattern.SHOT_BLUE;
                 displayPattern();
                 gamepadRateLimit.reset();
             } else if (G2A) { // Outtake the Intake (second controller)
-                pattern = RevBlinkinLedDriver.BlinkinPattern.SHOT_RED;
+                //pattern = RevBlinkinLedDriver.BlinkinPattern.SHOT_RED;
                 displayPattern();
                 gamepadRateLimit.reset();
                 leftIntake.setPower(1);
@@ -218,7 +218,7 @@ public class TestTeleop extends LinearOpMode {
                 leftIntake.setPower(0);
                 rightIntake.setPower(0);
                 dread.setPower(0);
-                pattern = RevBlinkinLedDriver.BlinkinPattern.BLACK;
+                //pattern = RevBlinkinLedDriver.BlinkinPattern.BLACK;
                 displayPattern();
                 gamepadRateLimit.reset();
                 rLift.setPower(0);
@@ -241,15 +241,15 @@ public class TestTeleop extends LinearOpMode {
     protected void doAutoDisplay()
     {
         if (ledCycleDeadline.hasExpired()) {
-            pattern = pattern.next();
+            //pattern = pattern.next();
             displayPattern();
             ledCycleDeadline.reset();
         }
     }
     protected void displayPattern()
     {
-        blinkinLedDriver.setPattern(pattern);
-        patternName.setValue(pattern.toString());
+        //blinkinLedDriver.setPattern(pattern);
+        //patternName.setValue(pattern.toString());
     }
 
 }
