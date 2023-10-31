@@ -9,45 +9,40 @@ import com.qualcomm.robotcore.hardware.Servo;
 @Autonomous(name ="BasicAuto", group="Linear Opmode")
 public class BasicAuto extends LinearOpMode {
 
-    private DcMotor frontLeft = null;
-    private DcMotor frontRight = null;
-    private DcMotor backRight = null;
-    private DcMotor backLeft = null;
-    private DcMotor armMotor = null;
+    private DcMotor leftFront = null;
+    private DcMotor rightFront = null;
+    private DcMotor rightRear = null;
+    private DcMotor leftRear = null;
     private Servo clawServo = null;
+
+    private DcMotor rLift = null;
+
+    private DcMotor lLift = null;
 
     @Override
     public void runOpMode() throws InterruptedException {
 
-        frontLeft = hardwareMap.get(DcMotor.class, "frontLeft");
-        frontRight = hardwareMap.get(DcMotor.class, "frontRight");
-        backLeft = hardwareMap.get(DcMotor.class, "backLeft");
-        backRight = hardwareMap.get(DcMotor.class, "backRight");
-        armMotor = hardwareMap.get(DcMotor.class, "armMotor");
+        leftFront = hardwareMap.get(DcMotor.class, "leftFront");
+        rightFront = hardwareMap.get(DcMotor.class, "rightFront");
+        leftRear = hardwareMap.get(DcMotor.class, "leftRear");
+        rightRear = hardwareMap.get(DcMotor.class, "rightRear");
 
-        frontRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        frontLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        backLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        backRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        armMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        rLift = hardwareMap.get(DcMotor.class,"rLift");
+        lLift = hardwareMap.get(DcMotor.class,"lLift");
 
-        backLeft.setDirection(DcMotorSimple.Direction.REVERSE);
-        frontLeft.setDirection(DcMotorSimple.Direction.REVERSE);
+        rightFront.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        leftFront.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        leftRear.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        rightRear.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+
+        leftRear.setDirection(DcMotorSimple.Direction.REVERSE);
+        leftFront.setDirection(DcMotorSimple.Direction.REVERSE);
 
         clawServo = hardwareMap.get(Servo.class, "clawServo");
 
         waitForStart();
         while(opModeIsActive()) {
-            clawServo.setPosition(.9);
-            driveForward(distance(2));
-            strafeLeft(distance(37));
-            driveForward(distance(30));
-            armUp(distance(100));
-            clawServo.setPosition(0.6);
-            armDown(distance(70));
-            driveBackward(distance(7));
-            strafeRight(distance(10));
-            sleep(30000);
+
 
         }
 
@@ -73,40 +68,40 @@ public class BasicAuto extends LinearOpMode {
     public void driveForward(double distance) {
 
         //Reset Encoders
-        frontLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        frontRight.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        frontLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        frontRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        backLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        backRight.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        backRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        backLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        leftFront.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        rightFront.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        leftFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        rightFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        leftRear.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        rightRear.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        rightRear.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        leftRear.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
-        frontLeft.setPower(0.5);
-        frontRight.setPower(0.5);
-        backLeft.setPower(0.5);
-        backRight.setPower(0.5);
+        leftFront.setPower(0.5);
+        rightFront.setPower(0.5);
+        leftRear.setPower(0.5);
+        rightRear.setPower(0.5);
 
-        while (frontRight.getCurrentPosition() < (distance - 10)) {
-            telemetry.addData("Left Encoder", frontRight.getCurrentPosition());
+        while (rightFront.getCurrentPosition() < (distance - 10)) {
+            telemetry.addData("Left Encoder", rightFront.getCurrentPosition());
             telemetry.update();
         }
 
         //Slowing down to reduce momentum
-        frontLeft.setPower(0.1);
-        frontRight.setPower(0.1);
-        backLeft.setPower(0.1);
-        backRight.setPower(0.1);
+        leftFront.setPower(0.1);
+        rightFront.setPower(0.1);
+        leftRear.setPower(0.1);
+        rightRear.setPower(0.1);
 
-        while (frontRight.getCurrentPosition() < distance) {
-            telemetry.addData("Left Encoder", frontRight.getCurrentPosition());
+        while (rightFront.getCurrentPosition() < distance) {
+            telemetry.addData("Left Encoder", rightFront.getCurrentPosition());
             telemetry.update();
         }
 
-        frontLeft.setPower(0);
-        frontRight.setPower(0);
-        backLeft.setPower(0);
-        backRight.setPower(0);
+        leftFront.setPower(0);
+        rightFront.setPower(0);
+        leftRear.setPower(0);
+        rightRear.setPower(0);
 
         sleep(500);
 
@@ -115,29 +110,29 @@ public class BasicAuto extends LinearOpMode {
     public void driveBackward(double distance) {
 
         //Reset Encoders
-        frontLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        frontRight.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        frontLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        frontRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        backLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        backRight.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        backRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        backLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        leftFront.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        rightFront.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        leftFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        rightFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        leftRear.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        rightRear.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        rightRear.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        leftRear.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
-        frontLeft.setPower(-0.5);
-        frontRight.setPower(-0.5);
-        backLeft.setPower(-0.5);
-        backRight.setPower(-0.5);
+        leftFront.setPower(-0.5);
+        rightFront.setPower(-0.5);
+        leftRear.setPower(-0.5);
+        rightRear.setPower(-0.5);
 
-        while (-frontRight.getCurrentPosition() < distance) {
-            telemetry.addData("Left Encoder", frontRight.getCurrentPosition());
+        while (-rightFront.getCurrentPosition() < distance) {
+            telemetry.addData("Left Encoder", rightFront.getCurrentPosition());
             telemetry.update();
         }
 
-        frontLeft.setPower(0);
-        frontRight.setPower(0);
-        backLeft.setPower(0);
-        backRight.setPower(0);
+        leftFront.setPower(0);
+        rightFront.setPower(0);
+        leftRear.setPower(0);
+        rightRear.setPower(0);
 
         sleep(500);
 
@@ -146,29 +141,29 @@ public class BasicAuto extends LinearOpMode {
     public void strafeRight(double distance) {
 
         //Reset Encoders
-        frontLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        frontRight.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        frontLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        frontRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        backLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        backRight.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        backRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        backLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        leftFront.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        rightFront.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        leftFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        rightFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        leftRear.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        rightRear.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        rightRear.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        leftRear.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
-        frontLeft.setPower(0.5);
-        frontRight.setPower(-0.5);
-        backLeft.setPower(-0.5);
-        backRight.setPower(0.5);
+        leftFront.setPower(0.5);
+        rightFront.setPower(-0.5);
+        leftRear.setPower(-0.5);
+        rightRear.setPower(0.5);
 
-        while (-frontRight.getCurrentPosition() < distance) {
-            telemetry.addData("Left Encoder", frontRight.getCurrentPosition());
+        while (-rightFront.getCurrentPosition() < distance) {
+            telemetry.addData("Left Encoder", rightFront.getCurrentPosition());
             telemetry.update();
         }
 
-        frontLeft.setPower(0);
-        frontRight.setPower(0);
-        backLeft.setPower(0);
-        backRight.setPower(0);
+        leftFront.setPower(0);
+        rightFront.setPower(0);
+        leftRear.setPower(0);
+        rightRear.setPower(0);
 
         sleep(500);
 
@@ -177,67 +172,115 @@ public class BasicAuto extends LinearOpMode {
     public void strafeLeft(double distance) {
 
         //Reset Encoders
-        frontLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        frontRight.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        frontLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        frontRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        backLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        backRight.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        backRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        backLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        leftFront.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        rightFront.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        leftFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        rightFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        leftRear.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        rightRear.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        rightRear.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        leftRear.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
-        frontLeft.setPower(-0.5);
-        frontRight.setPower(0.5);
-        backLeft.setPower(0.5);
-        backRight.setPower(-0.5);
+        leftFront.setPower(-0.5);
+        rightFront.setPower(0.5);
+        leftRear.setPower(0.5);
+        rightRear.setPower(-0.5);
 
-        while (frontRight.getCurrentPosition() < distance) {
-            telemetry.addData("Left Encoder", frontRight.getCurrentPosition());
+        while (rightFront.getCurrentPosition() < distance) {
+            telemetry.addData("Left Encoder", rightFront.getCurrentPosition());
             telemetry.update();
         }
 
-        frontLeft.setPower(0);
-        frontRight.setPower(0);
-        backLeft.setPower(0);
-        backRight.setPower(0);
+        leftFront.setPower(0);
+        rightFront.setPower(0);
+        leftRear.setPower(0);
+        rightRear.setPower(0);
 
         sleep(500);
 
     }
 
-    public void armUp(double distance) {
+
+
+    public void turnRight(double distance) {
 
         //Reset Encoders
-        armMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        armMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        leftFront.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        rightFront.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        leftFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        rightFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        leftRear.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        rightRear.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        rightRear.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        leftRear.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
-        armMotor.setPower(0.5);
+        leftFront.setPower(0.5);
+        rightFront.setPower(-0.5);
+        leftRear.setPower(0.5);
+        rightRear.setPower(-0.5);
 
-        while (armMotor.getCurrentPosition() < distance) {
-            telemetry.addData("Arm Encoder", armMotor.getCurrentPosition());
+        while (-rightFront.getCurrentPosition() < (distance - 10)) {
+            telemetry.addData("Left Encoder", rightFront.getCurrentPosition());
             telemetry.update();
         }
 
-        armMotor.setPower(0);
+        //Slowing down to reduce momentum
+        leftFront.setPower(0.1);
+        rightFront.setPower(-0.1);
+        leftRear.setPower(0.1);
+        rightRear.setPower(-0.1);
+
+        while (-rightFront.getCurrentPosition() < distance) {
+            telemetry.addData("Left Encoder", rightFront.getCurrentPosition());
+            telemetry.update();
+        }
+
+        leftFront.setPower(0);
+        rightFront.setPower(0);
+        leftRear.setPower(0);
+        rightRear.setPower(0);
 
         sleep(500);
 
     }
 
-    public void armDown(double distance) {
+    public void turnLeft(double distance) {
 
         //Reset Encoders
-        armMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        armMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        leftFront.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        rightFront.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        leftFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        rightFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        leftRear.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        rightRear.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        rightRear.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        leftRear.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
-        armMotor.setPower(-0.5);
+        leftFront.setPower(-0.5);
+        rightFront.setPower(0.5);
+        leftRear.setPower(-0.5);
+        rightRear.setPower(0.5);
 
-        while (-armMotor.getCurrentPosition() < distance) {
-            telemetry.addData("Arm Encoder", armMotor.getCurrentPosition());
+        while (rightFront.getCurrentPosition() < (distance - 10)) {
+            telemetry.addData("Left Encoder", rightFront.getCurrentPosition());
             telemetry.update();
         }
 
-        armMotor.setPower(0);
+        //Slowing down to reduce momentum
+        leftFront.setPower(-0.1);
+        rightFront.setPower(0.1);
+        leftRear.setPower(-0.1);
+        rightRear.setPower(0.1);
+
+        while (rightFront.getCurrentPosition() < distance) {
+            telemetry.addData("Left Encoder", rightFront.getCurrentPosition());
+            telemetry.update();
+        }
+
+        leftFront.setPower(0);
+        rightFront.setPower(0);
+        leftRear.setPower(0);
+        rightRear.setPower(0);
 
         sleep(500);
 

@@ -2,11 +2,10 @@ package org.firstinspires.ftc.teamcode;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.hardware.rev.RevBlinkinLedDriver;
-import com.qualcomm.robotcore.eventloop.opmode.OpMode;
+
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.robotcore.internal.system.Deadline;
 import java.util.concurrent.TimeUnit;
@@ -19,8 +18,8 @@ public class TestTeleop extends LinearOpMode {
     private DcMotor rightFront = null;
     private DcMotor leftRear = null;
     private DcMotor rightRear = null;
-    private DcMotor rlift = null;
-    private DcMotor llift = null;
+    private DcMotor rLift = null;
+    private DcMotor lLift = null;
     private DcMotor vector = null;
     private CRServo leftIntake = null;
     private CRServo rightIntake = null;
@@ -66,8 +65,8 @@ public class TestTeleop extends LinearOpMode {
         rightFront = hardwareMap.get(DcMotor.class,"rightFront");  //frontright, port 1
         leftRear = hardwareMap.get(DcMotor.class,"leftRear"); //backleft, port 3
         rightRear = hardwareMap.get(DcMotor.class,"rightRear");  //backright, port 2
-        rlift = hardwareMap.get(DcMotor.class,"rlift");
-        llift = hardwareMap.get(DcMotor.class,"llift");
+        rLift = hardwareMap.get(DcMotor.class,"rLift");
+        lLift = hardwareMap.get(DcMotor.class,"lLift");
         leftIntake = hardwareMap.get(CRServo.class,"leftIntake");
         rightIntake = hardwareMap.get(CRServo.class,"rightIntake");
         dread = hardwareMap.get(CRServo.class,"dread");
@@ -79,8 +78,8 @@ public class TestTeleop extends LinearOpMode {
         rightFront.setDirection(DcMotor.Direction.FORWARD);
         leftRear.setDirection(DcMotor.Direction.REVERSE);
         rightRear.setDirection(DcMotor.Direction.FORWARD);
-        rlift.setDirection(DcMotor.Direction.FORWARD);
-        llift.setDirection(DcMotor.Direction.REVERSE);
+        rLift.setDirection(DcMotor.Direction.FORWARD);
+        lLift.setDirection(DcMotor.Direction.REVERSE);
         vector.setDirection(DcMotor.Direction.FORWARD);
         displayKind = Blink.DisplayKind.AUTO;
 
@@ -195,11 +194,11 @@ public class TestTeleop extends LinearOpMode {
                 rightRear.setPower(0);
                 //moving into claw and linear slides (second controller)
             } else if (G2UD) { // Linear pillars move up (second controller)
-                rlift.setPower(1);
-                llift.setPower(1);
+                rLift.setPower(1);
+                lLift.setPower(1);
             } else if (G2DD) { // Linear pillars move down (second controller)
-                rlift.setPower(-1);
-                llift.setPower(-1);
+                rLift.setPower(-1);
+                lLift.setPower(-1);
             } else if (G2leftStickY > 0) { //linear SLIDE moves up (second controller)
                 vector.setPower(.5);
             } else if (G2leftStickY < 0) { //linear SLIDE moves down (second controller)
@@ -221,8 +220,8 @@ public class TestTeleop extends LinearOpMode {
                 pattern = RevBlinkinLedDriver.BlinkinPattern.BLACK;
                 displayPattern();
                 gamepadRateLimit.reset();
-                rlift.setPower(0);
-                llift.setPower(0);
+                rLift.setPower(0);
+                lLift.setPower(0);
                 vector.setPower(0);
             }
 

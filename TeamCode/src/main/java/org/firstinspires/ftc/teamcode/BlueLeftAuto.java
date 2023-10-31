@@ -47,10 +47,11 @@ import java.util.List;
  * Use Android Studio to Copy this Class, and Paste it into your team's code folder with a new name.
  * Remove or comment out the @Disabled line to add this OpMode to the Driver Station OpMode list.
  */
-@TeleOp(name = "BLUECustomTFODTest", group = "Concept")
+@TeleOp(name = "BlueLeftAuto", group = "Concept")
 //@Disabled
-public class BLUECustomTFODTest extends LinearOpMode {
+public class BlueLeftAuto extends LinearOpMode {
 
+    BasicAuto obj = new BasicAuto();
     private static final boolean USE_WEBCAM = true;  // true for webcam, false for phone camera
 
     // TFOD_MODEL_ASSET points to a model file stored in the project Asset location,
@@ -94,12 +95,35 @@ public class BLUECustomTFODTest extends LinearOpMode {
                 telemetry.update();
 
                 if (spikeLocation() == 3) {
-                    //CODE TO DEPOSIT PRELOAD ON RIGHT SPIKE MARK
-                    //ORIENT ROBOT
+
+                    obj.driveForward(100);
+                    obj.turnRight(100);
+                    //servo drop first pixel, purple
+                    obj.turnLeft(100);
+                    obj.driveBackward(100);
+                    obj.strafeLeft(100);
+                    //servo drop second pixel, yellow
+
+
                 } else if (spikeLocation() == 2) {
+
+                    obj.driveForward(100);
+                    //servo drop first pixel, purple
+                    obj.driveBackward(100);
+                    obj.strafeLeft(100);
+                    //servo drop second pixel, yellow
+
                     //CODE TO DEPOSIT PRELOAD ON CENTER SPIKE MARK
                     //ORIENT ROBOT
                 } else {
+                    obj.driveForward(100);
+                    obj.turnLeft(100);
+                    //servo drop first pixel, purple
+                    obj.turnRight(100);
+                    obj.driveBackward(100);
+                    obj.strafeLeft(100);
+                    //servo drop second pixel, yellow
+
                     //CODE TO DEPOSIT PRELOAD ON LEFT SPIKE MARK
                     //ORIENT ROBOT
                 }

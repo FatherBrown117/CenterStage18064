@@ -47,21 +47,22 @@ import java.util.List;
  * Use Android Studio to Copy this Class, and Paste it into your team's code folder with a new name.
  * Remove or comment out the @Disabled line to add this OpMode to the Driver Station OpMode list.
  */
-@TeleOp(name = "REDCustomTFODTest", group = "Concept")
+@TeleOp(name = "RedLeftAuto", group = "Concept")
 //@Disabled
-public class REDCustomTFODTest extends LinearOpMode {
+public class RedLeftAuto extends LinearOpMode {
 
+    BasicAuto obj = new BasicAuto();
     private static final boolean USE_WEBCAM = true;  // true for webcam, false for phone camera
 
     // TFOD_MODEL_ASSET points to a model file stored in the project Asset location,
     // this is only used for Android Studio when using models in Assets.
-    private static final String TFOD_MODEL_ASSET = "red_flex.tflite";
+    private static final String TFOD_MODEL_ASSET = "blue_flex.tflite";
     // TFOD_MODEL_FILE points to a model file stored onboard the Robot Controller's storage,
     // this is used when uploading models directly to the RC using the model upload interface.
     private static final String TFOD_MODEL_FILE = "/sdcard/FIRST/tflitemodels/myCustomModel.tflite";
     // Define the labels recognized in the model for TFOD (must be in training order!)
     private static final String[] LABELS = {
-       "red_flex",
+       "blue_flex",
     };
 
     /**
@@ -92,6 +93,42 @@ public class REDCustomTFODTest extends LinearOpMode {
 
                 // Push telemetry to the Driver Station.
                 telemetry.update();
+
+                if (spikeLocation() == 3) {
+
+                    obj.driveForward(100);
+                    obj.turnRight(100);
+                    //servo drop first pixel, purple
+                    obj.turnLeft(100);
+                    obj.driveForward(100);
+                    obj.strafeRight(100);
+                    //servo drop second pixel, yellow
+
+
+                } else if (spikeLocation() == 2) {
+
+                    obj.driveForward(100);
+                    obj.turnRight(180); //turn right
+                    //servo drop first pixel, purple
+                    obj.strafeLeft(100);
+                    //servo drop second pixel, yellow
+
+                    //CODE TO DEPOSIT PRELOAD ON CENTER SPIKE MARK
+                    //ORIENT ROBOT
+                } else {
+                    obj.driveForward(100);
+                    obj.turnLeft(100);
+                    //servo drop first pixel, purple
+                    obj.turnRight(100);
+                    obj.driveForward(100);
+                    obj.strafeRight(100);
+                    //servo drop second pixel, yellow
+
+                    //CODE TO DEPOSIT PRELOAD ON LEFT SPIKE MARK
+                    //ORIENT ROBOT
+                }
+
+                //DRIVE ROBOT TO PARK
 
                 // Save CPU resources; can resume streaming when needed.
                 if (gamepad1.dpad_down) {
@@ -167,7 +204,7 @@ public class REDCustomTFODTest extends LinearOpMode {
         visionPortal = builder.build();
 
         // Set confidence threshold for TFOD recognitions, at any time.
-        //tfod.setMinResultConfidence(0.75f);
+        tfod.setMinResultConfidence(0.75f);
 
         // Disable or re-enable the TFOD processor at any time.
         //visionPortal.setProcessorEnabled(tfod, true);
@@ -200,9 +237,9 @@ public class REDCustomTFODTest extends LinearOpMode {
         List<Recognition> currentRecognitions = tfod.getRecognitions();
 
         double location = 1;
-
+        
         for (Recognition recognition : currentRecognitions) {
-
+            
             if (recognition.getLeft() <= 350) {
                 location = 2;
                 telemetry.addData("Spike mark location: ", "center");
@@ -213,10 +250,9 @@ public class REDCustomTFODTest extends LinearOpMode {
                 location = 1;
                 telemetry.addData("Spike mark location: ", "left");
             }
-
+            
         }   // end for() loop
 
         return location;
     }
-
 }   // end class
