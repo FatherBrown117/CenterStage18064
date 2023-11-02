@@ -77,8 +77,8 @@ public class TestTeleop extends LinearOpMode {
 
         leftFront.setDirection(DcMotor.Direction.REVERSE);
         rightFront.setDirection(DcMotor.Direction.FORWARD);
-        leftRear.setDirection(DcMotor.Direction.REVERSE);
-        rightRear.setDirection(DcMotor.Direction.FORWARD);
+        leftRear.setDirection(DcMotor.Direction.FORWARD);
+        rightRear.setDirection(DcMotor.Direction.REVERSE);
         rLift.setDirection(DcMotor.Direction.FORWARD);
         lLift.setDirection(DcMotor.Direction.REVERSE);
         //vector.setDirection(DcMotor.Direction.FORWARD);
@@ -159,9 +159,9 @@ public class TestTeleop extends LinearOpMode {
                 leftRear.setPower(.5);
                 rightRear.setPower(0);
             } else if (G1Y) { // Intake + treadmill going up
-                leftIntake.setPower(-1);
+                leftIntake.setPower(1);
                 rightIntake.setPower(1);
-                dread.setPower(-1);
+                dread.setPower(1);
                 //pattern = RevBlinkinLedDriver.BlinkinPattern.SHOT_BLUE;
                 displayPattern();
                 gamepadRateLimit.reset();
@@ -169,7 +169,7 @@ public class TestTeleop extends LinearOpMode {
                 //pattern = RevBlinkinLedDriver.BlinkinPattern.SHOT_RED;
                 displayPattern();
                 gamepadRateLimit.reset();
-                leftIntake.setPower(1);
+                leftIntake.setPower(-1);
                 rightIntake.setPower(-1);
                 //dread.setPower(1); in case
             } else if (G1leftBumper) { // Diagonal: Upper left (First controller)
@@ -195,20 +195,20 @@ public class TestTeleop extends LinearOpMode {
                 //moving into claw and linear slides (second controller)
             } else if (G2UD) { // Linear pillars move up (second controller)
                 rLift.setPower(1);
-                lLift.setPower(1);
+                lLift.setPower(-1);
             } else if (G2DD) { // Linear pillars move down (second controller)
                 rLift.setPower(-1);
-                lLift.setPower(-1);
+                lLift.setPower(1);
             } else if (G2leftStickY > 0) { //linear SLIDE moves up (second controller)
                 //vector.setPower(.5);
             } else if (G2leftStickY < 0) { //linear SLIDE moves down (second controller)
                 //vector.setPower(-.5);
             } else if (G2RD) { //outtake moves inward (second controller)
-                leftPull.setPosition(10);
-                rightPull.setPosition(-10);
+                leftPull.setPosition(1);
+                rightPull.setPosition(0);
             } else if (G2LD) { //outtake moves outward (second controller)
-                leftPull.setPosition(10);
-                rightPull.setPosition(-10);
+                leftPull.setPosition(0);
+                rightPull.setPosition(1);
             } else { //STOP IN THE NAME OF THE LAW!
                 leftFront.setPower(0);
                 rightFront.setPower(0);
