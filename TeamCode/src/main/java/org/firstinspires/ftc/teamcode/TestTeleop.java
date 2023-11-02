@@ -133,7 +133,6 @@ public class TestTeleop extends LinearOpMode {
                 leftRear.setPower(0.5);
                 rightFront.setPower(-0.5);
                 rightRear.setPower(-0.5);
-
             } else if (G1rightStickX < 0) { // Counterclockwise
                 leftFront.setPower(-0.5);
                 leftRear.setPower(-0.5);
@@ -253,4 +252,4 @@ public class TestTeleop extends LinearOpMode {
     }
 
 }
-//apple
+//Aidan was here
