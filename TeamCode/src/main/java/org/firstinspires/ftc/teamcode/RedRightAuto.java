@@ -29,8 +29,12 @@
 
 package org.firstinspires.ftc.teamcode;
 
+import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.hardware.CRServo;
+import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.robotcore.external.hardware.camera.BuiltinCameraDirection;
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
@@ -47,10 +51,22 @@ import java.util.List;
  * Use Android Studio to Copy this Class, and Paste it into your team's code folder with a new name.
  * Remove or comment out the @Disabled line to add this OpMode to the Driver Station OpMode list.
  */
-@TeleOp(name = "RedRightAuto", group = "Concept")
+@Autonomous(name = "RedRightAuto", group = "Concept")
 //@Disabled
 public class RedRightAuto extends LinearOpMode {
 
+    private DcMotor leftFront = null;
+    private DcMotor rightFront = null;
+    private DcMotor leftRear = null;
+    private DcMotor rightRear = null;
+    private DcMotor rLift = null;
+    private DcMotor lLift = null;
+    //private DcMotor vector = null;
+    private CRServo leftIntake = null;
+    private CRServo rightIntake = null;
+    private CRServo dread = null;
+    private Servo leftPull = null;
+    private Servo rightPull = null;
     BasicAuto obj = new BasicAuto();
     private static final boolean USE_WEBCAM = true;  // true for webcam, false for phone camera
 
@@ -78,6 +94,27 @@ public class RedRightAuto extends LinearOpMode {
     @Override
     public void runOpMode() {
 
+        leftFront = hardwareMap.get(DcMotor.class,"leftFront"); //frontleft, port 0
+        rightFront = hardwareMap.get(DcMotor.class,"rightFront");  //frontright, port 1
+        leftRear = hardwareMap.get(DcMotor.class,"leftRear"); //backleft, port 3
+        rightRear = hardwareMap.get(DcMotor.class,"rightRear");  //backright, port 2
+        rLift = hardwareMap.get(DcMotor.class,"rLift");
+        lLift = hardwareMap.get(DcMotor.class,"lLift");
+        leftIntake = hardwareMap.get(CRServo.class,"leftIntake");
+        rightIntake = hardwareMap.get(CRServo.class,"rightIntake");
+        dread = hardwareMap.get(CRServo.class,"dread");
+        //vector = hardwareMap.get(DcMotor.class,"vector");
+
+        rightPull = hardwareMap.get(Servo.class, "rightPull");
+        leftPull = hardwareMap.get(Servo.class, "leftPull");
+
+        leftFront.setDirection(DcMotor.Direction.REVERSE);
+        rightFront.setDirection(DcMotor.Direction.FORWARD);
+        leftRear.setDirection(DcMotor.Direction.REVERSE);
+        rightRear.setDirection(DcMotor.Direction.FORWARD);
+        rLift.setDirection(DcMotor.Direction.FORWARD);
+        lLift.setDirection(DcMotor.Direction.REVERSE);
+
         initTfod();
 
         // Wait for the DS start button to be touched.
@@ -95,34 +132,34 @@ public class RedRightAuto extends LinearOpMode {
 
                 if (spikeLocation() == 3) {
 
-                    obj.driveForward(100);
+                    /*obj.driveForward(100);
                     obj.turnRight(100);
                     //servo drop first pixel, purple
                     obj.turnLeft(100);
                     obj.driveBackward(100);
                     obj.strafeRight(100);
                     //servo drop second pixel, yellow
-
+                    */
 
                 } else if (spikeLocation() == 2) {
 
-                    obj.driveForward(100);
-                    //servo drop first pixel, purple
                     obj.driveBackward(100);
+                    //servo drop first pixel, purple
+                    /*obj.driveBackward(100);
                     obj.strafeRight(100);
                     //servo drop second pixel, yellow
-
+                    */
                     //CODE TO DEPOSIT PRELOAD ON CENTER SPIKE MARK
                     //ORIENT ROBOT
                 } else {
-                    obj.driveForward(100);
+                    /*obj.driveForward(100);
                     obj.turnLeft(100);
                     //servo drop first pixel, purple
                     obj.turnRight(100);
                     obj.driveBackward(100);
                     obj.strafeRight(100);
                     //servo drop second pixel, yellow
-
+                    */
                     //CODE TO DEPOSIT PRELOAD ON LEFT SPIKE MARK
                     //ORIENT ROBOT
                 }
@@ -239,10 +276,10 @@ public class RedRightAuto extends LinearOpMode {
 
         for (Recognition recognition : currentRecognitions) {
 
-            if (recognition.getLeft() <= 350) {
+            if (recognition.getLeft() <= 386) {
                 location = 2;
                 telemetry.addData("Spike mark location: ", "center");
-            } else if (recognition.getLeft() > 350) {
+            } else if (recognition.getLeft() > 386) {
                 location = 3;
                 telemetry.addData("Spike mark location: ", "right");
             } else {

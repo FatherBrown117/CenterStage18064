@@ -29,6 +29,7 @@
 
 package org.firstinspires.ftc.teamcode;
 
+import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
@@ -47,7 +48,7 @@ import java.util.List;
  * Use Android Studio to Copy this Class, and Paste it into your team's code folder with a new name.
  * Remove or comment out the @Disabled line to add this OpMode to the Driver Station OpMode list.
  */
-@TeleOp(name = "BlueLeftAuto", group = "Concept")
+@Autonomous(name = "BlueLeftAuto", group = "Concept")
 //@Disabled
 public class BlueLeftAuto extends LinearOpMode {
 
@@ -97,33 +98,33 @@ public class BlueLeftAuto extends LinearOpMode {
                 if (spikeLocation() == 3) {
 
                     obj.driveForward(100);
-                    obj.turnRight(100);
+                    /*obj.turnRight(100);
                     //servo drop first pixel, purple
                     obj.turnLeft(100);
                     obj.driveBackward(100);
                     obj.strafeLeft(100);
                     //servo drop second pixel, yellow
-
+                    */
 
                 } else if (spikeLocation() == 2) {
 
-                    obj.driveForward(100);
+                    /*obj.driveForward(100);
                     //servo drop first pixel, purple
                     obj.driveBackward(100);
                     obj.strafeLeft(100);
                     //servo drop second pixel, yellow
-
+                    */
                     //CODE TO DEPOSIT PRELOAD ON CENTER SPIKE MARK
                     //ORIENT ROBOT
                 } else {
-                    obj.driveForward(100);
+                    /*obj.driveForward(100);
                     obj.turnLeft(100);
                     //servo drop first pixel, purple
                     obj.turnRight(100);
                     obj.driveBackward(100);
                     obj.strafeLeft(100);
                     //servo drop second pixel, yellow
-
+                    */
                     //CODE TO DEPOSIT PRELOAD ON LEFT SPIKE MARK
                     //ORIENT ROBOT
                 }
