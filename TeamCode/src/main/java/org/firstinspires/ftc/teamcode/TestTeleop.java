@@ -26,6 +26,7 @@ public class TestTeleop extends LinearOpMode {
     private CRServo dread = null;
     private Servo leftPull = null;
     private Servo rightPull = null;
+    private Servo drone = null;
 
 
 
@@ -71,9 +72,9 @@ public class TestTeleop extends LinearOpMode {
         rightIntake = hardwareMap.get(CRServo.class,"rightIntake");
         dread = hardwareMap.get(CRServo.class,"dread");
         //vector = hardwareMap.get(DcMotor.class,"vector");
-
         rightPull = hardwareMap.get(Servo.class, "rightPull");
         leftPull = hardwareMap.get(Servo.class, "leftPull");
+        drone = hardwareMap.get(Servo.class,"drone");
 
         leftFront.setDirection(DcMotor.Direction.REVERSE);
         rightFront.setDirection(DcMotor.Direction.FORWARD);
@@ -187,6 +188,10 @@ public class TestTeleop extends LinearOpMode {
                 rightFront.setPower(.5);
                 leftRear.setPower(.5);
                 rightRear.setPower(-.5);
+            } else if (G1A) {
+                drone.setPosition(0);
+                sleep(3000);
+                drone.setPosition(1);
             } else if (G1rightBumper) { // Diagonal: Lower left (First controller)
                 leftFront.setPower(0);
                 rightFront.setPower(-.5);
