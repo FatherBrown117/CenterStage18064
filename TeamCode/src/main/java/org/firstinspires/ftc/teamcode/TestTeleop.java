@@ -120,11 +120,18 @@ public class TestTeleop extends LinearOpMode {
             double G1LT = gamepad1.left_trigger;
             //Second controller (Intake/linear slide)
             double G2leftStickY = gamepad2.left_stick_y;
+            boolean G2B = gamepad2.b;
+            boolean G2Y = gamepad2.y;
             boolean G2A = gamepad2.a;
             boolean G2UD = gamepad2.dpad_up; // up dpad
             boolean G2DD = gamepad2.dpad_down; // down dpad
             boolean G2RD = gamepad2.dpad_right;// right dpad
             boolean G2LD = gamepad2.dpad_left; //left dpad
+            double G2LT = gamepad2.left_trigger;
+            double G2RT = gamepad2.right_trigger;
+            boolean G2rightBumper = gamepad2.right_bumper;
+            boolean G2leftBumper = gamepad2.left_bumper;
+            boolean G2back = gamepad2.back;
 
 
             //Driving movements (First controller)
@@ -149,69 +156,58 @@ public class TestTeleop extends LinearOpMode {
                 leftRear.setPower(.5);
                 rightFront.setPower(.5);
                 rightRear.setPower(.5);
-            } else if (G1RT==1) { //strafe right
+            } else if (G1leftStickX > 0) { // Move right
                 leftFront.setPower(.5);
-                rightFront.setPower(0);
-                leftRear.setPower(0);
+                rightFront.setPower(-.5);
+                leftRear.setPower(-.5);
                 rightRear.setPower(.5);
-            } else if (G1LT==1) { //strafe left
-                leftFront.setPower(0);
+            } else if (G1leftStickX < 0) { // Move left
+                leftFront.setPower(-.5);
                 rightFront.setPower(.5);
                 leftRear.setPower(.5);
-                rightRear.setPower(0);
-            } else if (G1Y) { // Intake + treadmill going up
+                rightRear.setPower(-.5);
+            } else if (G2A) { // Intake + treadmill going up
                 leftIntake.setPower(1);
                 rightIntake.setPower(1);
                 dread.setPower(1);
                 //pattern = RevBlinkinLedDriver.BlinkinPattern.SHOT_BLUE;
                 displayPattern();
                 gamepadRateLimit.reset();
-            } else if (G2A) { // Outtake the Intake (second controller)
+            } else if (G2B) { // Outtake the Intake (reverse intake)
                 //pattern = RevBlinkinLedDriver.BlinkinPattern.SHOT_RED;
                 displayPattern();
                 gamepadRateLimit.reset();
                 leftIntake.setPower(-1);
                 rightIntake.setPower(-1);
-                //dread.setPower(1); in case
-            } else if (G1leftBumper) { // Diagonal: Upper left (First controller)
-                leftFront.setPower(-0.5);
-                rightFront.setPower(0);
-                leftRear.setPower(0);
-                rightRear.setPower(-.5);
+                dread.setPower(-1); //in case
+            } else if (G2Y) { //Outtake 2 (backdrop
             } else if (G1B) { // Diagonal: Lower Right (First controller)
-                leftFront.setPower(.5);
-                rightFront.setPower(-.5);
-                leftRear.setPower(-.5);
-                rightRear.setPower(.5);
+                //pattern = RevBlinkinLedDriver.BlinkinPattern.PURPLE;
             } else if (G1X) { // Diagonal: Upper Right (First controller)
-                leftFront.setPower(-.5);
-                rightFront.setPower(.5);
-                leftRear.setPower(.5);
-                rightRear.setPower(-.5);
+                //pattern = RevBlinkinLedDriver.BlinkinPattern.WHITE;
             } else if (G1A) {
+                //pattern = RevBlinkinLedDriver.BlinkinPattern.GREEN;
+            } else if (G1Y) {
+                //pattern = RevBlinkinLedDriver.BlinkinPattern.YELLOW;
+            } else if (G2back) {
                 drone.setPosition(0);
                 sleep(3000);
                 drone.setPosition(1);
-            } else if (G1rightBumper) { // Diagonal: Lower left (First controller)
-                leftFront.setPower(0);
-                rightFront.setPower(-.5);
-                leftRear.setPower(-.5);
-                rightRear.setPower(0);
                 //moving into claw and linear slides (second controller)
-            } else if (G2UD) { // Linear pillars move up (second controller)
+            } else if (G2LT == 1) { // Linear pillars move up (second controller)
                 rLift.setPower(1);
                 lLift.setPower(-1);
-            } else if (G2DD) { // Linear pillars move down (second controller)
+            } else if (G2RT == 1) { // Linear pillars move down (second controller)
                 rLift.setPower(-1);
                 lLift.setPower(1);
             } else if (G2leftStickY > 0) { //linear SLIDE moves up (second controller)
                 //vector.setPower(.5);
             } else if (G2leftStickY < 0) { //linear SLIDE moves down (second controller)
                 //vector.setPower(-.5);
-            } else if (G2RD) { //outtake moves inward (second controller)
+            } else if (G2leftBumper) { //outtake moves inward (second controller)
                 leftPull.setPosition(1);
                 rightPull.setPosition(0);
-            } else if (G2LD) { //outtake moves outward (second controller)
+            } else if (G2rightBumper) { //outtake moves outward (second controller)
                 leftPull.setPosition(0);
                 rightPull.setPosition(1);
             } else { //STOP IN THE NAME OF THE LAW!
