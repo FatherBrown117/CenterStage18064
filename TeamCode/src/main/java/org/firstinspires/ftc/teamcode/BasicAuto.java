@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Servo;
@@ -11,34 +12,42 @@ public class BasicAuto extends LinearOpMode {
 
     private DcMotor leftFront = null;
     private DcMotor rightFront = null;
-    private DcMotor rightRear = null;
     private DcMotor leftRear = null;
-    private Servo clawServo = null;
-
+    private DcMotor rightRear = null;
     private DcMotor rLift = null;
-
     private DcMotor lLift = null;
+    //private DcMotor vector = null;
+    private CRServo leftIntake = null;
+    private CRServo rightIntake = null;
+    private CRServo dread = null;
+    private Servo leftPull = null;
+    private Servo rightPull = null;
 
     @Override
     public void runOpMode() throws InterruptedException {
 
-        leftFront = hardwareMap.get(DcMotor.class, "leftFront");
-        rightFront = hardwareMap.get(DcMotor.class, "rightFront");
-        leftRear = hardwareMap.get(DcMotor.class, "leftRear");
-        rightRear = hardwareMap.get(DcMotor.class, "rightRear");
-
+        //hardware mapping
+        leftFront = hardwareMap.get(DcMotor.class,"leftFront"); //frontleft, port 0
+        rightFront = hardwareMap.get(DcMotor.class,"rightFront");  //frontright, port 1
+        leftRear = hardwareMap.get(DcMotor.class,"leftRear"); //backleft, port 3
+        rightRear = hardwareMap.get(DcMotor.class,"rightRear");  //backright, port 2
         rLift = hardwareMap.get(DcMotor.class,"rLift");
         lLift = hardwareMap.get(DcMotor.class,"lLift");
+        leftIntake = hardwareMap.get(CRServo.class,"leftIntake");
+        rightIntake = hardwareMap.get(CRServo.class,"rightIntake");
+        dread = hardwareMap.get(CRServo.class,"dread");
+        //vector = hardwareMap.get(DcMotor.class,"vector");
 
-        rightFront.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        leftFront.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        leftRear.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        rightRear.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        rightPull = hardwareMap.get(Servo.class, "rightPull");
+        leftPull = hardwareMap.get(Servo.class, "leftPull");
 
-        leftRear.setDirection(DcMotorSimple.Direction.REVERSE);
-        leftFront.setDirection(DcMotorSimple.Direction.REVERSE);
-
-        clawServo = hardwareMap.get(Servo.class, "clawServo");
+        leftFront.setDirection(DcMotor.Direction.REVERSE);
+        rightFront.setDirection(DcMotor.Direction.FORWARD);
+        leftRear.setDirection(DcMotor.Direction.FORWARD);
+        rightRear.setDirection(DcMotor.Direction.REVERSE);
+        rLift.setDirection(DcMotor.Direction.FORWARD);
+        lLift.setDirection(DcMotor.Direction.REVERSE);
+        //vector.setDirection(DcMotor.Direction.FORWARD);
 
         waitForStart();
         while(opModeIsActive()) {
@@ -55,14 +64,6 @@ public class BasicAuto extends LinearOpMode {
     public double distance(float inches) {
         //537.6 pulses per rotation
         return inches * (537.6 / (3.75 * 3.141592));
-    }
-
-    public void servoOpen() {
-        clawServo.setPosition(.5);
-    }
-
-    public void servoClose() {
-        clawServo.setPosition(0);
     }
 
     public void driveForward(double distance) {
