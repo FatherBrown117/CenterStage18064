@@ -4,7 +4,7 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.hardware.CRServo;
-//import com.qualcomm.hardware.rev.RevBlinkinLedDriver;
+import com.qualcomm.hardware.rev.RevBlinkinLedDriver;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.robotcore.internal.system.Deadline;
@@ -41,8 +41,8 @@ public class TestTeleop extends LinearOpMode {
     private final static int GAMEPAD_LOCKOUT = 500;
 
 
-    //RevBlinkinLedDriver blinkinLedDriver;
-    //RevBlinkinLedDriver.BlinkinPattern pattern;
+    RevBlinkinLedDriver blinkinLedDriver;
+    RevBlinkinLedDriver.BlinkinPattern pattern;
 
     Telemetry.Item patternName;
     Telemetry.Item display;
@@ -85,12 +85,12 @@ public class TestTeleop extends LinearOpMode {
         //vector.setDirection(DcMotor.Direction.FORWARD);
         displayKind = Blink.DisplayKind.AUTO;
 
-        //blinkinLedDriver = hardwareMap.get(RevBlinkinLedDriver.class, "blinkin");
-        //pattern = RevBlinkinLedDriver.BlinkinPattern.CP1_BREATH_FAST;
-        //blinkinLedDriver.setPattern(pattern);
+        blinkinLedDriver = hardwareMap.get(RevBlinkinLedDriver.class, "blinkin");
+        pattern = RevBlinkinLedDriver.BlinkinPattern.CP1_BREATH_FAST;
+        blinkinLedDriver.setPattern(pattern);
 
         display = telemetry.addData("Display Kind: ", displayKind.toString());
-        //patternName = telemetry.addData("Pattern: ", pattern.toString());
+        patternName = telemetry.addData("Pattern: ", pattern.toString());
 
         ledCycleDeadline = new Deadline(LED_PERIOD, TimeUnit.SECONDS);
         gamepadRateLimit = new Deadline(GAMEPAD_LOCKOUT, TimeUnit.MILLISECONDS);
@@ -137,58 +137,92 @@ public class TestTeleop extends LinearOpMode {
             //Driving movements (First controller)
 
             if (G1rightStickX > 0) {  // Clockwise
-                leftFront.setPower(0.5);
-                leftRear.setPower(0.5);
-                rightFront.setPower(-0.5);
-                rightRear.setPower(-0.5);
+                leftFront.setPower(.5);
+                leftRear.setPower(.5);
+                rightFront.setPower(.5);
+                rightRear.setPower(.5);
             } else if (G1rightStickX < 0) { // Counterclockwise
-                leftFront.setPower(-0.5);
-                leftRear.setPower(-0.5);
-                rightFront.setPower(0.5);
-                rightRear.setPower(0.5);
-            } else if (G1leftStickY > 0) { // Backwards
-                leftFront.setPower(-0.5);
-                leftRear.setPower(-0.5);
-                rightFront.setPower(-0.5);
-                rightRear.setPower(-0.5);
-            } else if (G1leftStickY < 0) { // Forwards
-                leftFront.setPower(.5);
-                leftRear.setPower(.5);
-                rightFront.setPower(.5);
-                rightRear.setPower(.5);
-            } else if (G1leftStickX > 0) { // Move right
-                leftFront.setPower(.5);
-                rightFront.setPower(-.5);
-                leftRear.setPower(-.5);
-                rightRear.setPower(.5);
-            } else if (G1leftStickX < 0) { // Move left
                 leftFront.setPower(-.5);
+                leftRear.setPower(-.5);
                 rightFront.setPower(.5);
-                leftRear.setPower(.5);
-                rightRear.setPower(-.5);
+                rightRear.setPower(.5);
+            } else if (G1leftStickY > 0) { // Backwards
+                leftFront.setPower(-.6);
+                leftRear.setPower(-.6);
+                rightFront.setPower(-.6);
+                rightRear.setPower(-.6);
+            } else if (G1leftStickY < 0) { // Forwards
+                leftFront.setPower(.6);
+                leftRear.setPower(.6);
+                rightFront.setPower(.6);
+                rightRear.setPower(.6);
+            } else if (G1leftStickX > 0) { // Move right
+                leftFront.setPower(.6);
+                rightFront.setPower(-.6);
+                leftRear.setPower(-.6);
+                rightRear.setPower(.6);
+            } else if (G1leftStickX < 0) { // Move left
+                leftFront.setPower(-.6);
+                rightFront.setPower(.6);
+                leftRear.setPower(.6);
+                rightRear.setPower(-.6);
+            } else if (G1UD) {
+                leftFront.setPower(.25);
+                leftRear.setPower(.25);
+                rightFront.setPower(.25);
+                rightRear.setPower(.25);
+            } else if (G1DD) { // Backwards
+                leftFront.setPower(-.25);
+                leftRear.setPower(-.25);
+                rightFront.setPower(-.25);
+                rightRear.setPower(-.25);
+            } else if (G1RD) { // Move right
+                leftFront.setPower(.25);
+                rightFront.setPower(-.25);
+                leftRear.setPower(-.25);
+                rightRear.setPower(.25);
+            } else if (G1LD) { // Move left
+                leftFront.setPower(-.25);
+                rightFront.setPower(.25);
+                leftRear.setPower(.25);
+                rightRear.setPower(-.25);
             } else if (G2A) { // Intake + treadmill going up
                 leftIntake.setPower(1);
                 rightIntake.setPower(1);
                 dread.setPower(1);
-                //pattern = RevBlinkinLedDriver.BlinkinPattern.SHOT_BLUE;
+                pattern = RevBlinkinLedDriver.BlinkinPattern.SHOT_BLUE;
                 displayPattern();
                 gamepadRateLimit.reset();
+                blinkinLedDriver.setPattern(pattern);
             } else if (G2B) { // Outtake the Intake (reverse intake)
-                //pattern = RevBlinkinLedDriver.BlinkinPattern.SHOT_RED;
+                pattern = RevBlinkinLedDriver.BlinkinPattern.SHOT_RED;
                 displayPattern();
                 gamepadRateLimit.reset();
+                blinkinLedDriver.setPattern(pattern);
                 leftIntake.setPower(-1);
                 rightIntake.setPower(-1);
                 dread.setPower(-1); //in case
             } else if (G2Y) { //Outtake 2 (backdrop
             } else if (G1B) { // Diagonal: Lower Right (First controller)
-                //pattern = RevBlinkinLedDriver.BlinkinPattern.PURPLE;
+                pattern = RevBlinkinLedDriver.BlinkinPattern.HOT_PINK;
+                displayPattern();
+                gamepadRateLimit.reset();
+                blinkinLedDriver.setPattern(pattern);
             } else if (G1X) { // Diagonal: Upper Right (First controller)
-                //pattern = RevBlinkinLedDriver.BlinkinPattern.WHITE;
+                pattern = RevBlinkinLedDriver.BlinkinPattern.WHITE;
+                displayPattern();
+                gamepadRateLimit.reset();
+                blinkinLedDriver.setPattern(pattern);
             } else if (G1A) {
-                //pattern = RevBlinkinLedDriver.BlinkinPattern.GREEN;
+                pattern = RevBlinkinLedDriver.BlinkinPattern.GREEN;
+                displayPattern();
+                gamepadRateLimit.reset();
+                blinkinLedDriver.setPattern(pattern);
             } else if (G1Y) {
-                //pattern = RevBlinkinLedDriver.BlinkinPattern.YELLOW;
+                pattern = RevBlinkinLedDriver.BlinkinPattern.YELLOW;
+                displayPattern();
+                gamepadRateLimit.reset();
+                blinkinLedDriver.setPattern(pattern);
             } else if (G2back) {
                 drone.setPosition(0);
                 sleep(3000);
@@ -219,8 +253,9 @@ public class TestTeleop extends LinearOpMode {
                 rightIntake.setPower(0);
                 dread.setPower(0);
                 //pattern = RevBlinkinLedDriver.BlinkinPattern.BLACK;
-                displayPattern();
-                gamepadRateLimit.reset();
+                //blinkinLedDriver.setPattern(pattern);
+                //displayPattern();
+                //gamepadRateLimit.reset();
                 rLift.setPower(0);
                 lLift.setPower(0);
                 //vector.setPower(0);
