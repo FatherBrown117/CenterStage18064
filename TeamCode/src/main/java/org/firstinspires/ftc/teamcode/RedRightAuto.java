@@ -150,7 +150,8 @@ public class RedRightAuto extends LinearOpMode {
 
                 } else if (spikeLocation() == 2) {
 
-                    driveBackward(600);
+                    driveBackward(870, 0.25);
+                    turnRight(640, 0.1);
                     //servo drop first pixel, purple
                     /*obj.driveBackward(100);
                     obj.strafeRight(100);
@@ -301,7 +302,7 @@ public class RedRightAuto extends LinearOpMode {
         return location;
     }
 
-    public void driveForward(double distance) {
+    public void driveForward(double distance, double power) {
 
         //Reset Encoders
         leftFront.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -313,21 +314,10 @@ public class RedRightAuto extends LinearOpMode {
         rightRear.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         leftRear.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
-        leftFront.setPower(0.5);
-        rightFront.setPower(0.5);
-        leftRear.setPower(0.5);
-        rightRear.setPower(0.5);
-
-        while (rightFront.getCurrentPosition() < (distance - 10)) {
-            telemetry.addData("Left Encoder", rightFront.getCurrentPosition());
-            telemetry.update();
-        }
-
-        //Slowing down to reduce momentum
-        leftFront.setPower(0.1);
-        rightFront.setPower(0.1);
-        leftRear.setPower(0.1);
-        rightRear.setPower(0.1);
+        leftFront.setPower(power);
+        rightFront.setPower(power);
+        leftRear.setPower(power);
+        rightRear.setPower(power);
 
         while (rightFront.getCurrentPosition() < distance) {
             telemetry.addData("Left Encoder", rightFront.getCurrentPosition());
@@ -343,7 +333,7 @@ public class RedRightAuto extends LinearOpMode {
 
     }
 
-    public void driveBackward(double distance) {
+    public void driveBackward(double distance, double power) {
 
         //Reset Encoders
         leftFront.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -355,10 +345,10 @@ public class RedRightAuto extends LinearOpMode {
         rightRear.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         leftRear.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
-        leftFront.setPower(-0.5);
-        rightFront.setPower(-0.5);
-        leftRear.setPower(-0.5);
-        rightRear.setPower(-0.5);
+        leftFront.setPower(power * -1);
+        rightFront.setPower(power * -1);
+        leftRear.setPower(power * -1);
+        rightRear.setPower(power * -1);
 
         while (-rightFront.getCurrentPosition() < distance) {
             telemetry.addData("Left Encoder", rightFront.getCurrentPosition());
@@ -374,7 +364,7 @@ public class RedRightAuto extends LinearOpMode {
 
     }
 
-    public void strafeRight(double distance) {
+    public void strafeRight(double distance, double power) {
 
         //Reset Encoders
         leftFront.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -386,10 +376,10 @@ public class RedRightAuto extends LinearOpMode {
         rightRear.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         leftRear.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
-        leftFront.setPower(0.5);
-        rightFront.setPower(-0.5);
-        leftRear.setPower(-0.5);
-        rightRear.setPower(0.5);
+        leftFront.setPower(power);
+        rightFront.setPower(power * -1);
+        leftRear.setPower(power * -1);
+        rightRear.setPower(power);
 
         while (-rightFront.getCurrentPosition() < distance) {
             telemetry.addData("Left Encoder", rightFront.getCurrentPosition());
@@ -405,7 +395,7 @@ public class RedRightAuto extends LinearOpMode {
 
     }
 
-    public void strafeLeft(double distance) {
+    public void strafeLeft(double distance, double power) {
 
         //Reset Encoders
         leftFront.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -417,10 +407,10 @@ public class RedRightAuto extends LinearOpMode {
         rightRear.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         leftRear.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
-        leftFront.setPower(-0.5);
-        rightFront.setPower(0.5);
-        leftRear.setPower(0.5);
-        rightRear.setPower(-0.5);
+        leftFront.setPower(power * -1);
+        rightFront.setPower(power);
+        leftRear.setPower(power);
+        rightRear.setPower(power * -1);
 
         while (rightFront.getCurrentPosition() < distance) {
             telemetry.addData("Left Encoder", rightFront.getCurrentPosition());
@@ -438,7 +428,7 @@ public class RedRightAuto extends LinearOpMode {
 
 
 
-    public void turnRight(double distance) {
+    public void turnRight(double distance, double power) {
 
         //Reset Encoders
         leftFront.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -450,21 +440,10 @@ public class RedRightAuto extends LinearOpMode {
         rightRear.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         leftRear.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
-        leftFront.setPower(0.5);
-        rightFront.setPower(-0.5);
-        leftRear.setPower(0.5);
-        rightRear.setPower(-0.5);
-
-        while (-rightFront.getCurrentPosition() < (distance - 10)) {
-            telemetry.addData("Left Encoder", rightFront.getCurrentPosition());
-            telemetry.update();
-        }
-
-        //Slowing down to reduce momentum
-        leftFront.setPower(0.1);
-        rightFront.setPower(-0.1);
-        leftRear.setPower(0.1);
-        rightRear.setPower(-0.1);
+        leftFront.setPower(power);
+        rightFront.setPower(power * -1);
+        leftRear.setPower(power);
+        rightRear.setPower(power * -1);
 
         while (-rightFront.getCurrentPosition() < distance) {
             telemetry.addData("Left Encoder", rightFront.getCurrentPosition());
@@ -480,7 +459,7 @@ public class RedRightAuto extends LinearOpMode {
 
     }
 
-    public void turnLeft(double distance) {
+    public void turnLeft(double distance, double power) {
 
         //Reset Encoders
         leftFront.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -492,21 +471,10 @@ public class RedRightAuto extends LinearOpMode {
         rightRear.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         leftRear.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
-        leftFront.setPower(-0.5);
-        rightFront.setPower(0.5);
-        leftRear.setPower(-0.5);
-        rightRear.setPower(0.5);
-
-        while (rightFront.getCurrentPosition() < (distance - 10)) {
-            telemetry.addData("Left Encoder", rightFront.getCurrentPosition());
-            telemetry.update();
-        }
-
-        //Slowing down to reduce momentum
-        leftFront.setPower(-0.1);
-        rightFront.setPower(0.1);
-        leftRear.setPower(-0.1);
-        rightRear.setPower(0.1);
+        leftFront.setPower(power * -1);
+        rightFront.setPower(power);
+        leftRear.setPower(power * -1);
+        rightRear.setPower(power);
 
         while (rightFront.getCurrentPosition() < distance) {
             telemetry.addData("Left Encoder", rightFront.getCurrentPosition());
