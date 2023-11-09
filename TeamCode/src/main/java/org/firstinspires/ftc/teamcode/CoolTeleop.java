@@ -61,7 +61,6 @@ import java.util.concurrent.TimeUnit;
  */
 
 @TeleOp(name="CoolTeleop", group="Iterative OpMode")
-@Disabled
 public class CoolTeleop extends OpMode {
     // Declare OpMode members.
     private ElapsedTime runtime = new ElapsedTime();
