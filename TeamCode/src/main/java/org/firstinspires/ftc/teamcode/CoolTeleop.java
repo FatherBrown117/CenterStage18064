@@ -60,7 +60,7 @@ import java.util.concurrent.TimeUnit;
  * Remove or comment out the @Disabled line to add this OpMode to the Driver Station OpMode list
  */
 
-@TeleOp(name="Basic: Iterative OpMode", group="Iterative OpMode")
+@TeleOp(name="CoolTeleop", group="Iterative OpMode")
 @Disabled
 public class CoolTeleop extends OpMode {
     // Declare OpMode members.
