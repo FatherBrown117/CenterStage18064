@@ -117,6 +117,7 @@ public class RedLeftAuto extends LinearOpMode {
                     //CODE TO DEPOSIT PRELOAD ON CENTER SPIKE MARK
                     //ORIENT ROBOT
                 } else {
+
                     obj.driveForward(100);
                     obj.turnLeft(100);
                     //servo drop first pixel, purple

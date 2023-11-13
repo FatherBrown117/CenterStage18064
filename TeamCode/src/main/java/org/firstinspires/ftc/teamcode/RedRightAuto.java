@@ -53,7 +53,7 @@ import java.util.List;
  */
 @Autonomous(name = "RedRightAuto", group = "Concept")
 //@Disabled
-public class RedRightAuto extends LinearOpMode {
+public class     RedRightAuto extends LinearOpMode {
 
     private DcMotor leftFront = null;
     private DcMotor rightFront = null;
@@ -160,6 +160,7 @@ public class RedRightAuto extends LinearOpMode {
                     //CODE TO DEPOSIT PRELOAD ON CENTER SPIKE MARK
                     //ORIENT ROBOT
                 } else {
+
                     /*obj.driveForward(100);
                     obj.turnLeft(100);
                     //servo drop first pixel, purple
