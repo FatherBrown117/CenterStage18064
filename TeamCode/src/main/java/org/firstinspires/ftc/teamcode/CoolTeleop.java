@@ -232,52 +232,52 @@ public class CoolTeleop extends OpMode {
             leftRear.setPower(.5);
             rightFront.setPower(-.5);
             rightRear.setPower(-.5);
-        } else if (G1rightStickX < 0) { // Counterclockwise
+        }if (G1rightStickX < 0) { // Counterclockwise
             leftFront.setPower(-.5);
             leftRear.setPower(-.5);
             rightFront.setPower(.5);
             rightRear.setPower(.5);
-        } else if (G1leftStickY > 0) { // Backwards
+        }if (G1leftStickY > 0) { // Backwards
             leftFront.setPower(-.6);
             leftRear.setPower(-.6);
             rightFront.setPower(-.6);
             rightRear.setPower(-.6);
-        } else if (G1leftStickY < 0) { // Forwards
+        }if (G1leftStickY < 0) { // Forwards
             leftFront.setPower(.6);
             leftRear.setPower(.6);
             rightFront.setPower(.6);
             rightRear.setPower(.6);
-        } else if (G1leftStickX > 0) { // Move right
+        }if (G1leftStickX > 0) { // Move right
             leftFront.setPower(.6);
             rightFront.setPower(-.6);
             leftRear.setPower(-.6);
             rightRear.setPower(.6);
-        } else if (G1leftStickX < 0) { // Move left
+        } if (G1leftStickX < 0) { // Move left
             leftFront.setPower(-.6);
             rightFront.setPower(.6);
             leftRear.setPower(.6);
             rightRear.setPower(-.6);
-        } else if (G1UD) {
+        } if (G1UD) {
                 leftFront.setPower(.25);
                 leftRear.setPower(.25);
                 rightFront.setPower(.25);
                 rightRear.setPower(.25);
-        } else if (G1DD) { // Backwards
+        }if (G1DD) { // Backwards
                 leftFront.setPower(-.25);
                 leftRear.setPower(-.25);
                 rightFront.setPower(-.25);
                 rightRear.setPower(-.25);
-        } else if (G1RD) { // Move right
+        }if (G1RD) { // Move right
                 leftFront.setPower(.25);
                 rightFront.setPower(-.25);
                 leftRear.setPower(-.25);
                 rightRear.setPower(.25);
-        } else if (G1LD) { // Move left
+        }if (G1LD) { // Move left
                 leftFront.setPower(-.25);
                 rightFront.setPower(.25);
                 leftRear.setPower(.25);
                 rightRear.setPower(-.25);
-        } else if (G2A) { // Intake + treadmill going up
+        }if (G2A) { // Intake + treadmill going up
                 leftIntake.setPower(1);
                 rightIntake.setPower(1);
                 dread.setPower(1);
@@ -285,7 +285,7 @@ public class CoolTeleop extends OpMode {
                 displayPattern();
                 gamepadRateLimit.reset();
                 blinkinLedDriver.setPattern(pattern);
-        } else if (G2B) { // Outtake the Intake (reverse intake)
+        } if (G2B) { // Outtake the Intake (reverse intake)
                 pattern = RevBlinkinLedDriver.BlinkinPattern.SHOT_RED;
                 displayPattern();
                 gamepadRateLimit.reset();
@@ -293,49 +293,49 @@ public class CoolTeleop extends OpMode {
                 leftIntake.setPower(-1);
                 rightIntake.setPower(-1);
                 dread.setPower(-1); //in case
-            } else if (G2Y) { //Outtake 2 (backdrop
-            } else if (G1B) { // Diagonal: Lower Right (First controller)
+        } if (G2Y) { //Outtake 2 (backdrop
+        } if (G1B) { // Diagonal: Lower Right (First controller)
                 pattern = RevBlinkinLedDriver.BlinkinPattern.HOT_PINK;
                 displayPattern();
                 gamepadRateLimit.reset();
                 blinkinLedDriver.setPattern(pattern);
-            } else if (G1X) { // Diagonal: Upper Right (First controller)
+        } if (G1X) { // Diagonal: Upper Right (First controller)
                 pattern = RevBlinkinLedDriver.BlinkinPattern.WHITE;
                 displayPattern();
                 gamepadRateLimit.reset();
                 blinkinLedDriver.setPattern(pattern);
-            } else if (G1A) {
+        }if (G1A) {
                 pattern = RevBlinkinLedDriver.BlinkinPattern.GREEN;
                 displayPattern();
                 gamepadRateLimit.reset();
                 blinkinLedDriver.setPattern(pattern);
-            } else if (G1Y) {
+        }if (G1Y) {
                 pattern = RevBlinkinLedDriver.BlinkinPattern.YELLOW;
                 displayPattern();
                 gamepadRateLimit.reset();
                 blinkinLedDriver.setPattern(pattern);
-            } else if (G2back) {
+        }if (G2back) {
                 drone.setPosition(0);
                 sleep(3000);
                 drone.setPosition(1);
                 //moving into claw and linear slides (second controller)
-            } else if (G2LT == 1) { // Linear pillars move up (second controller)
+        }if (G2LT == 1) { // Linear pillars move up (second controller)
                 rLift.setPower(1);
                 lLift.setPower(-1);
-            } else if (G2RT == 1) { // Linear pillars move down (second controller)
+        }if (G2RT == 1) { // Linear pillars move down (second controller)
                 rLift.setPower(-1);
                 lLift.setPower(1);
-            } else if (G2leftStickY > 0) { //linear SLIDE moves up (second controller)
+        }if (G2leftStickY > 0) { //linear SLIDE moves up (second controller)
                 //vector.setPower(.5);
-            } else if (G2leftStickY < 0) { //linear SLIDE moves down (second controller)
+        }if (G2leftStickY < 0) { //linear SLIDE moves down (second controller)
                 //vector.setPower(-.5);
-            } else if (G2leftBumper) { //outtake moves inward (second controller)
+        }if (G2leftBumper) { //outtake moves inward (second controller)
                 leftPull.setPosition(1);
                 rightPull.setPosition(0);
-            } else if (G2rightBumper) { //outtake moves outward (second controller)
+        }if (G2rightBumper) { //outtake moves outward (second controller)
                 leftPull.setPosition(0);
                 rightPull.setPosition(1);
-            } else { //STOP IN THE NAME OF THE LAW!
+        } else { //STOP IN THE NAME OF THE LAW!
                 leftFront.setPower(0);
                 rightFront.setPower(0);
                 leftRear.setPower(0);
@@ -343,10 +343,10 @@ public class CoolTeleop extends OpMode {
                 leftIntake.setPower(0);
                 rightIntake.setPower(0);
                 dread.setPower(0);
-                //pattern = RevBlinkinLedDriver.BlinkinPattern.BLACK;
-                //blinkinLedDriver.setPattern(pattern);
-                //displayPattern();
-                //gamepadRateLimit.reset();
+                pattern = RevBlinkinLedDriver.BlinkinPattern.BLACK;
+                blinkinLedDriver.setPattern(pattern);
+                displayPattern();
+                gamepadRateLimit.reset();
                 rLift.setPower(0);
                 lLift.setPower(0);
                 //vector.setPower(0);
