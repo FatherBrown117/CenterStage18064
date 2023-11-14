@@ -146,6 +146,7 @@ public class TestTeleop extends LinearOpMode {
             boolean G2B = gamepad2.b;
             boolean G2Y = gamepad2.y;
             boolean G2A = gamepad2.a;
+            boolean G2X = gamepad2.x;
             boolean G2UD = gamepad2.dpad_up; // up dpad
             boolean G2DD = gamepad2.dpad_down; // down dpad
             boolean G2RD = gamepad2.dpad_right;// right dpad
@@ -214,7 +215,7 @@ public class TestTeleop extends LinearOpMode {
             }if (G2A) { // Intake + treadmill going up
                 leftIntake.setPower(1);
                 rightIntake.setPower(1);
-                dread.setPower(1);
+                //dread.setPower(1);
                 pattern = RevBlinkinLedDriver.BlinkinPattern.SHOT_BLUE;
                 displayPattern();
                 gamepadRateLimit.reset();
@@ -226,8 +227,11 @@ public class TestTeleop extends LinearOpMode {
                 blinkinLedDriver.setPattern(pattern);
                 leftIntake.setPower(-1);
                 rightIntake.setPower(-1);
-                dread.setPower(-1); //in case
-            } if (G2Y) { //Outtake 2 (backdrop
+                //dread.setPower(-1); //in case
+            } if (G2Y) { //Outtake 2 (backdrop DOWN
+                dread.setPower(-1);
+            } if (G2X) { //Outtake 2 (backdrop UP
+                dread.setPower(1);
             } if (G1B) { // Diagonal: Lower Right (First controller)
                 pattern = RevBlinkinLedDriver.BlinkinPattern.HOT_PINK;
                 displayPattern();
