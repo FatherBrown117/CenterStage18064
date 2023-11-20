@@ -192,6 +192,26 @@ public class TestTeleop extends LinearOpMode {
                 rightFront.setPower(.8);
                 leftRear.setPower(.8);
                 rightRear.setPower(-.8);
+            } if (G1leftStickY > 0 & G1leftStickX > 0) {
+                leftFront.setPower(.8);
+                rightFront.setPower(0);
+                leftRear.setPower(0);
+                rightRear.setPower(.8);
+            } if (G1leftStickY > 0 & G1leftStickX < 0) {
+                leftFront.setPower(0);
+                rightFront.setPower(.8);
+                leftRear.setPower(.8);
+                rightRear.setPower(0);
+            } if (G1leftStickY < 0 & G1leftStickX < 0) {
+                leftFront.setPower(-.8);
+                rightFront.setPower(0);
+                leftRear.setPower(0);
+                rightRear.setPower(-.8);
+            } if (G1leftStickY < 0 & G1leftStickX > 0) {
+                leftFront.setPower(0);
+                rightFront.setPower(-.8);
+                leftRear.setPower(-.8);
+                rightRear.setPower(0);
             } if (G1UD) {
                 leftFront.setPower(.5);
                 leftRear.setPower(.5);
