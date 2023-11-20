@@ -6,8 +6,8 @@ import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Servo;
 
-@Autonomous(name ="ParkingAutoINSIDE", group="Linear Opmode")
-public class ParkingAutoINSIDE extends LinearOpMode {
+@Autonomous(name ="RedInsidePARKING", group="Linear Opmode")
+public class RedInsidePARKING extends LinearOpMode {
 
     private DcMotor leftFront = null;
     private DcMotor rightFront = null;
@@ -57,12 +57,12 @@ public class ParkingAutoINSIDE extends LinearOpMode {
         waitForStart();
         while(opModeIsActive()) {
             strafeRight(50, 0.3);
-            driveBackward(900, 0.3);
+            driveBackward(1300, 0.3);
             sleep(1000);
             leftIntake.setPower(1);
             rightIntake.setPower(1);
             dread.setPower(1);
-            sleep(5000);
+            sleep(8000);
             leftIntake.setPower(0);
             rightIntake.setPower(0);
             dread.setPower(0);
