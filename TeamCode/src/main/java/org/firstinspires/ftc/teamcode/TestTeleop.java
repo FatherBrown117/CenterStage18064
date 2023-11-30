@@ -99,6 +99,11 @@ public class TestTeleop extends LinearOpMode {
         vector.setDirection(DcMotor.Direction.FORWARD);
         displayKind = Blink.DisplayKind.AUTO;
 
+        rightFront.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        leftFront.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        leftRear.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        rightRear.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+
         blinkinLedDriver = hardwareMap.get(RevBlinkinLedDriver.class, "blinkin");
         pattern = RevBlinkinLedDriver.BlinkinPattern.CP1_BREATH_FAST;
         blinkinLedDriver.setPattern(pattern);
