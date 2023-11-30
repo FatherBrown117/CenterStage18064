@@ -192,26 +192,6 @@ public class TestTeleop extends LinearOpMode {
                 rightFront.setPower(.8);
                 leftRear.setPower(.8);
                 rightRear.setPower(-.8);
-            } if (G1leftStickY > 0 & G1leftStickX > 0) {
-                leftFront.setPower(.8);
-                rightFront.setPower(0);
-                leftRear.setPower(0);
-                rightRear.setPower(.8);
-            } if (G1leftStickY > 0 & G1leftStickX < 0) {
-                leftFront.setPower(0);
-                rightFront.setPower(.8);
-                leftRear.setPower(.8);
-                rightRear.setPower(0);
-            } if (G1leftStickY < 0 & G1leftStickX < 0) {
-                leftFront.setPower(-.8);
-                rightFront.setPower(0);
-                leftRear.setPower(0);
-                rightRear.setPower(-.8);
-            } if (G1leftStickY < 0 & G1leftStickX > 0) {
-                leftFront.setPower(0);
-                rightFront.setPower(-.8);
-                leftRear.setPower(-.8);
-                rightRear.setPower(0);
             } if (G1UD) {
                 leftFront.setPower(.5);
                 leftRear.setPower(.5);
@@ -253,25 +233,25 @@ public class TestTeleop extends LinearOpMode {
             } if (G2X) { //Outtake 2 (backdrop UP
                 dread.setPower(1);
             } if (G1B) { // Diagonal: Lower Right (First controller)
-                pattern = RevBlinkinLedDriver.BlinkinPattern.HOT_PINK;
-                displayPattern();
-                gamepadRateLimit.reset();
-                blinkinLedDriver.setPattern(pattern);
+                leftFront.setPower(0);
+                rightFront.setPower(-.8);
+                leftRear.setPower(-.8);
+                rightRear.setPower(0);
             } if (G1X) { // Diagonal: Upper Right (First controller)
-                pattern = RevBlinkinLedDriver.BlinkinPattern.WHITE;
-                displayPattern();
-                gamepadRateLimit.reset();
-                blinkinLedDriver.setPattern(pattern);
+                leftFront.setPower(0);
+                rightFront.setPower(.8);
+                leftRear.setPower(.8);
+                rightRear.setPower(0);
             }if (G1A) {
-                pattern = RevBlinkinLedDriver.BlinkinPattern.GREEN;
-                displayPattern();
-                gamepadRateLimit.reset();
-                blinkinLedDriver.setPattern(pattern);
+                leftFront.setPower(-0.8);
+                rightFront.setPower(0);
+                leftRear.setPower(0);
+                rightRear.setPower(-0.8);
             }if (G1Y) {
-                pattern = RevBlinkinLedDriver.BlinkinPattern.YELLOW;
-                displayPattern();
-                gamepadRateLimit.reset();
-                blinkinLedDriver.setPattern(pattern);
+                leftFront.setPower(0.8);
+                rightFront.setPower(0);
+                leftRear.setPower(0);
+                rightRear.setPower(0.8);
             }if (G2back) {
                 drone.setPosition(0);
                 sleep(3000);
