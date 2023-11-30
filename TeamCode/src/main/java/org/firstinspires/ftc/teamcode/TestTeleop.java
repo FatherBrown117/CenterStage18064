@@ -227,11 +227,7 @@ public class TestTeleop extends LinearOpMode {
                 blinkinLedDriver.setPattern(pattern);
                 leftIntake.setPower(-1);
                 rightIntake.setPower(-1);
-                //dread.setPower(-1); //in case
-            } if (G2Y) { //Outtake 2 (backdrop DOWN
-                dread.setPower(-1);
-            } if (G2X) { //Outtake 2 (backdrop UP
-                dread.setPower(1);
+                //dread.setPower(-1); //in ca
             } if (G1B) { // Diagonal: Lower Right (First controller)
                 leftFront.setPower(0);
                 rightFront.setPower(-.8);
