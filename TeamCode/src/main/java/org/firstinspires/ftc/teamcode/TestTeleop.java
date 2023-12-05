@@ -26,7 +26,7 @@ public class TestTeleop extends LinearOpMode {
     private DcMotor rightRearb = null;
     private DcMotor rLift = null;
     private DcMotor lLift = null;
-    private DcMotor vector = null;
+    private CRServo vector = null;
     private CRServo leftIntake = null;
     private CRServo rightIntake = null;
     private CRServo dread = null;
@@ -82,7 +82,7 @@ public class TestTeleop extends LinearOpMode {
         leftIntake = hardwareMap.get(CRServo.class,"leftIntake");
         rightIntake = hardwareMap.get(CRServo.class,"rightIntake");
         dread = hardwareMap.get(CRServo.class,"dread");
-        vector = hardwareMap.get(DcMotor.class,"vector");
+        vector = hardwareMap.get(CRServo.class,"vector");
         rightPull = hardwareMap.get(Servo.class, "rightPull");
         leftPull = hardwareMap.get(Servo.class, "leftPull");
         drone = hardwareMap.get(Servo.class,"drone");
@@ -98,7 +98,6 @@ public class TestTeleop extends LinearOpMode {
         rightRearb.setDirection(DcMotor.Direction.REVERSE);
         rLift.setDirection(DcMotor.Direction.FORWARD);
         lLift.setDirection(DcMotor.Direction.REVERSE);
-        vector.setDirection(DcMotor.Direction.FORWARD);
         displayKind = Blink.DisplayKind.AUTO;
 
         rightFront.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
