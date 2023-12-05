@@ -275,9 +275,9 @@ public class TestTeleop extends LinearOpMode {
             }if (G2rightBumper) { //outtake moves outward (second controller)
                 leftPull.setPosition(0);
                 rightPull.setPosition(1);
-            }if (G2A){ //outtake outtake
+            }if (G2X) { //outtake outtake
                 outtake.setPosition(1);
-                sleep(3000);
+            }if (G2Y) {
                 outtake.setPosition(0);
             } else { //STOP IN THE NAME OF THE LAW!
                 leftFront.setPower(0);
