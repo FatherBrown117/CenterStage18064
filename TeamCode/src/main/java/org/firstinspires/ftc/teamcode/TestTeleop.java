@@ -173,52 +173,52 @@ public class TestTeleop extends LinearOpMode {
                 leftRear.setPower(.8);
                 rightFront.setPower(-.8);
                 rightRear.setPower(-.8);
-            }if (G1rightStickX < 0) { // Counterclockwise
+            }else if (G1rightStickX < 0) { // Counterclockwise
                 leftFront.setPower(-.8);
                 leftRear.setPower(-.8);
                 rightFront.setPower(.8);
                 rightRear.setPower(.8);
-            }if (G1leftStickY > 0) { // Backwards
+            }else if (G1leftStickY > 0) { // Backwards
                 leftFront.setPower(-.8);
                 leftRear.setPower(-.8);
                 rightFront.setPower(-.8);
                 rightRear.setPower(-.8);
-            }if (G1leftStickY < 0) { // Forwards
+            }else if (G1leftStickY < 0) { // Forwards
                 leftFront.setPower(.8);
                 leftRear.setPower(.8);
                 rightFront.setPower(.8);
                 rightRear.setPower(.8);
-            }if (G1leftStickX > 0) { // Move right
+            }else if (G1leftStickX > 0) { // Move right
                 leftFront.setPower(.8);
                 rightFront.setPower(-.8);
                 leftRear.setPower(-.8);
                 rightRear.setPower(.8);
-            } if (G1leftStickX < 0) { // Move left
+            }else if (G1leftStickX < 0) { // Move left
                 leftFront.setPower(-.8);
                 rightFront.setPower(.8);
                 leftRear.setPower(.8);
                 rightRear.setPower(-.8);
-            } if (G1UD) {
+            }else if (G1UD) {
                 leftFront.setPower(.5);
                 leftRear.setPower(.5);
                 rightFront.setPower(.5);
                 rightRear.setPower(.5);
-            }if (G1DD) { // Backwards
+            }else if (G1DD) { // Backwards
                 leftFront.setPower(-.5);
                 leftRear.setPower(-.5);
                 rightFront.setPower(-.5);
                 rightRear.setPower(-.5);
-            }if (G1RD) { // Move right
+            }else if (G1RD) { // Move right
                 leftFront.setPower(.5);
                 rightFront.setPower(-.5);
                 leftRear.setPower(-.5);
                 rightRear.setPower(.5);
-            }if (G1LD) { // Move left
+            }else if (G1LD) { // Move left
                 leftFront.setPower(-.5);
                 rightFront.setPower(.5);
                 leftRear.setPower(.5);
                 rightRear.setPower(-.5);
-            }if (G2A) { // Intake + treadmill going up
+            }else if (G2A) { // Intake + treadmill going up
                 leftIntake.setPower(1);
                 rightIntake.setPower(1);
                 //dread.setPower(1);
@@ -226,7 +226,7 @@ public class TestTeleop extends LinearOpMode {
                 displayPattern();
                 gamepadRateLimit.reset();
                 blinkinLedDriver.setPattern(pattern);
-            } if (G2B) { // Outtake the Intake (reverse intake)
+            }else if (G2B) { // Outtake the Intake (reverse intake)
                 pattern = RevBlinkinLedDriver.BlinkinPattern.SHOT_RED;
                 displayPattern();
                 gamepadRateLimit.reset();
@@ -234,22 +234,22 @@ public class TestTeleop extends LinearOpMode {
                 leftIntake.setPower(-1);
                 rightIntake.setPower(-1);
                 //dread.setPower(-1); //in ca
-            } if (G1B) { // Diagonal: Lower Right (First controller)
+            }else if (G1B) { // Diagonal: Lower Right (First controller)
                 leftFront.setPower(0);
                 rightFront.setPower(-.8);
                 leftRear.setPower(-.8);
                 rightRear.setPower(0);
-            } if (G1X) { // Diagonal: Upper Right (First controller)
+            }else if (G1X) { // Diagonal: Upper Right (First controller)
                 leftFront.setPower(0);
                 rightFront.setPower(.8);
                 leftRear.setPower(.8);
                 rightRear.setPower(0);
-            }if (G1A) {
+            }else if (G1A) {
                 leftFront.setPower(-0.8);
                 rightFront.setPower(0);
                 leftRear.setPower(0);
                 rightRear.setPower(-0.8);
-            }if (G1Y) {
+            }else if (G1Y) {
                 leftFront.setPower(0.8);
                 rightFront.setPower(0);
                 leftRear.setPower(0);
