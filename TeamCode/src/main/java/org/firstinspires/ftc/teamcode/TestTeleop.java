@@ -241,9 +241,9 @@ public class TestTeleop extends LinearOpMode {
                 rLift.setPower(-1);
                 lLift.setPower(1);
             }if (G2leftStickY > 0) { //linear SLIDE moves up (second controller)
-                vector.setPower(1);
+                dread.setPower(1);
             }if (G2leftStickY < 0) { //linear SLIDE moves down (second controller)
-                vector.setPower(-1);
+                dread.setPower(-1);
             }if (G2leftBumper) { //outtake moves inward (second controller)
                 leftPull.setPosition(1);
                 rightPull.setPosition(0);
