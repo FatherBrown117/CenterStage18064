@@ -7,6 +7,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.hardware.rev.RevBlinkinLedDriver;
+import com.qualcomm.robotcore.util.Range;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.robotcore.internal.system.Deadline;
@@ -121,20 +122,18 @@ public class TestTeleop extends LinearOpMode {
         waitForStart();
 
         while (opModeIsActive()) {
-            double leftFrontx;
-            double rightFrontx;
-            double leftRearx;
-            double rightRearx;
-            double leftFronty;
-            double rightFronty;
-            double leftReary;
-            double rightReary;
+            double leftPower;
+            double rightPower;
+            double leftPowerx;
 
 
             double G1rightStickY = gamepad1.right_stick_y;
             double G1leftStickY = gamepad1.left_stick_y;
             double G1rightStickX = gamepad1.right_stick_x;
             double G1leftStickX = gamepad1.left_stick_x;
+            leftPower = Range.clip(G1leftStickY +G1rightStickX, -1.0, 1.0);
+            rightPower = Range.clip(G1leftStickY -G1rightStickX, -1.0, 1.0);
+
             boolean G1rightBumper = gamepad1.right_bumper;
             boolean G1leftBumper = gamepad1.left_bumper;
             boolean G1UD = gamepad1.dpad_up;   // up dpad
@@ -168,57 +167,33 @@ public class TestTeleop extends LinearOpMode {
             // Forward and Backward (Left Stick)
 
 
-            if (G1rightStickX > 0) {  // Clockwise
-                leftFront.setPower(1);
-                leftRear.setPower(1);
-                rightFront.setPower(-1);
-                rightRear.setPower(-1);
-            }else if (G1rightStickX < 0) { // Counterclockwise
-                leftFront.setPower(-1);
-                leftRear.setPower(-1);
-                rightFront.setPower(1);
-                rightRear.setPower(1);
-            }else if (G1leftStickY > 0) { // Backwards
-                leftFront.setPower(-1);
-                leftRear.setPower(-1);
-                rightFront.setPower(-1);
-                rightRear.setPower(-1);
-            }else if (G1leftStickY < 0) { // Forwards
-                leftFront.setPower(1);
-                leftRear.setPower(1);
-                rightFront.setPower(1);
-                rightRear.setPower(1);
-            }else if (G1leftStickX > 0) { // Move right
-                leftFront.setPower(1);
-                rightFront.setPower(-1);
-                leftRear.setPower(-1);
-                rightRear.setPower(1);
-            }else if (G1leftStickX < 0) { // Move left
-                leftFront.setPower(-1);
-                rightFront.setPower(1);
-                leftRear.setPower(1);
-                rightRear.setPower(-1);
-            }else if (G1UD) {
+            leftPower = -gamepad1.left_stick_y;
+            rightPower = -gamepad1.right_stick_y;
+            leftFront.setPower(leftPower);
+            leftRear.setPower(leftPower);
+            rightFront.setPower(-leftPower);
+            rightRear.setPower(-leftPower);
+            if (G1UD) {
                 leftFront.setPower(.5);
                 leftRear.setPower(.5);
                 rightFront.setPower(.5);
                 rightRear.setPower(.5);
-            }else if (G1DD) { // Backwards
+            }if (G1DD) { // Backwards
                 leftFront.setPower(-.5);
                 leftRear.setPower(-.5);
                 rightFront.setPower(-.5);
                 rightRear.setPower(-.5);
-            }else if (G1RD) { // Move right
+            }if (G1RD) { // Move right
                 leftFront.setPower(.5);
                 rightFront.setPower(-.5);
                 leftRear.setPower(-.5);
                 rightRear.setPower(.5);
-            }else if (G1LD) { // Move left
+            }if (G1LD) { // Move left
                 leftFront.setPower(-.5);
                 rightFront.setPower(.5);
                 leftRear.setPower(.5);
                 rightRear.setPower(-.5);
-            }else if (G2A) { // Intake + treadmill going up
+            }if (G2A) { // Intake + treadmill going up
                 leftIntake.setPower(1);
                 rightIntake.setPower(1);
                 //dread.setPower(1);
@@ -226,7 +201,7 @@ public class TestTeleop extends LinearOpMode {
                 displayPattern();
                 gamepadRateLimit.reset();
                 blinkinLedDriver.setPattern(pattern);
-            }else if (G2B) { // Outtake the Intake (reverse intake)
+            }if (G2B) { // Outtake the Intake (reverse intake)
                 pattern = RevBlinkinLedDriver.BlinkinPattern.SHOT_RED;
                 displayPattern();
                 gamepadRateLimit.reset();
@@ -234,22 +209,22 @@ public class TestTeleop extends LinearOpMode {
                 leftIntake.setPower(-1);
                 rightIntake.setPower(-1);
                 //dread.setPower(-1); //in ca
-            }else if (G1B) { // Diagonal: Lower Right (First controller)
+            }if (G1B) { // Diagonal: Lower Right (First controller)
                 leftFront.setPower(0);
                 rightFront.setPower(-1);
                 leftRear.setPower(-1);
                 rightRear.setPower(0);
-            }else if (G1X) { // Diagonal: Upper Right (First controller)
+            }if (G1X) { // Diagonal: Upper Right (First controller)
                 leftFront.setPower(0);
                 rightFront.setPower(1);
                 leftRear.setPower(1);
                 rightRear.setPower(0);
-            }else if (G1A) {
+            }if (G1A) {
                 leftFront.setPower(-1);
                 rightFront.setPower(0);
                 leftRear.setPower(0);
                 rightRear.setPower(-1);
-            }else if (G1Y) {
+            }if (G1Y) {
                 leftFront.setPower(1);
                 rightFront.setPower(0);
                 leftRear.setPower(0);
