@@ -169,35 +169,35 @@ public class TestTeleop extends LinearOpMode {
 
 
             if (G1rightStickX > 0) {  // Clockwise
-                leftFront.setPower(.8);
-                leftRear.setPower(.8);
-                rightFront.setPower(-.8);
-                rightRear.setPower(-.8);
+                leftFront.setPower(1);
+                leftRear.setPower(1);
+                rightFront.setPower(-1);
+                rightRear.setPower(-1);
             }else if (G1rightStickX < 0) { // Counterclockwise
-                leftFront.setPower(-.8);
-                leftRear.setPower(-.8);
-                rightFront.setPower(.8);
-                rightRear.setPower(.8);
+                leftFront.setPower(-1);
+                leftRear.setPower(-1);
+                rightFront.setPower(1);
+                rightRear.setPower(1);
             }else if (G1leftStickY > 0) { // Backwards
-                leftFront.setPower(-.8);
-                leftRear.setPower(-.8);
-                rightFront.setPower(-.8);
-                rightRear.setPower(-.8);
+                leftFront.setPower(-1);
+                leftRear.setPower(-1);
+                rightFront.setPower(-1);
+                rightRear.setPower(-1);
             }else if (G1leftStickY < 0) { // Forwards
-                leftFront.setPower(.8);
-                leftRear.setPower(.8);
-                rightFront.setPower(.8);
-                rightRear.setPower(.8);
+                leftFront.setPower(1);
+                leftRear.setPower(1);
+                rightFront.setPower(1);
+                rightRear.setPower(1);
             }else if (G1leftStickX > 0) { // Move right
-                leftFront.setPower(.8);
-                rightFront.setPower(-.8);
-                leftRear.setPower(-.8);
-                rightRear.setPower(.8);
+                leftFront.setPower(1);
+                rightFront.setPower(-1);
+                leftRear.setPower(-1);
+                rightRear.setPower(1);
             }else if (G1leftStickX < 0) { // Move left
-                leftFront.setPower(-.8);
-                rightFront.setPower(.8);
-                leftRear.setPower(.8);
-                rightRear.setPower(-.8);
+                leftFront.setPower(-1);
+                rightFront.setPower(1);
+                leftRear.setPower(1);
+                rightRear.setPower(-1);
             }else if (G1UD) {
                 leftFront.setPower(.5);
                 leftRear.setPower(.5);
@@ -236,24 +236,24 @@ public class TestTeleop extends LinearOpMode {
                 //dread.setPower(-1); //in ca
             }else if (G1B) { // Diagonal: Lower Right (First controller)
                 leftFront.setPower(0);
-                rightFront.setPower(-.8);
-                leftRear.setPower(-.8);
+                rightFront.setPower(-1);
+                leftRear.setPower(-1);
                 rightRear.setPower(0);
             }else if (G1X) { // Diagonal: Upper Right (First controller)
                 leftFront.setPower(0);
-                rightFront.setPower(.8);
-                leftRear.setPower(.8);
+                rightFront.setPower(1);
+                leftRear.setPower(1);
                 rightRear.setPower(0);
             }else if (G1A) {
-                leftFront.setPower(-0.8);
+                leftFront.setPower(-1);
                 rightFront.setPower(0);
                 leftRear.setPower(0);
-                rightRear.setPower(-0.8);
+                rightRear.setPower(-1);
             }else if (G1Y) {
-                leftFront.setPower(0.8);
+                leftFront.setPower(1);
                 rightFront.setPower(0);
                 leftRear.setPower(0);
-                rightRear.setPower(0.8);
+                rightRear.setPower(1);
             }if (G2back) {
                 drone.setPosition(0);
                 sleep(3000);
@@ -266,9 +266,9 @@ public class TestTeleop extends LinearOpMode {
                 rLift.setPower(-1);
                 lLift.setPower(1);
             }if (G2leftStickY > 0) { //linear SLIDE moves up (second controller)
-                vector.setPower(.5);
+                vector.setPower(1);
             }if (G2leftStickY < 0) { //linear SLIDE moves down (second controller)
-                vector.setPower(-.5);
+                vector.setPower(-1);
             }if (G2leftBumper) { //outtake moves inward (second controller)
                 leftPull.setPosition(1);
                 rightPull.setPosition(0);
