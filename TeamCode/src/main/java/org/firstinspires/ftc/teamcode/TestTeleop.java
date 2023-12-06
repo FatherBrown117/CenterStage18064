@@ -27,7 +27,7 @@ public class TestTeleop extends LinearOpMode {
     private DcMotor rightRearb = null;
     private DcMotor rLift = null;
     private DcMotor lLift = null;
-    private CRServo vector = null;
+    private CRServo intakein = null;
     private CRServo leftIntake = null;
     private CRServo rightIntake = null;
     private CRServo dread = null;
@@ -83,7 +83,7 @@ public class TestTeleop extends LinearOpMode {
         leftIntake = hardwareMap.get(CRServo.class,"leftIntake");
         rightIntake = hardwareMap.get(CRServo.class,"rightIntake");
         dread = hardwareMap.get(CRServo.class,"dread");
-        vector = hardwareMap.get(CRServo.class,"vector");
+        intakein = hardwareMap.get(CRServo.class,"intakein");
         rightPull = hardwareMap.get(Servo.class, "rightPull");
         leftPull = hardwareMap.get(Servo.class, "leftPull");
         drone = hardwareMap.get(Servo.class,"drone");
@@ -178,6 +178,10 @@ public class TestTeleop extends LinearOpMode {
                 leftRear.setPower(.5);
                 rightFront.setPower(.5);
                 rightRear.setPower(.5);
+            }if (G2UD) {
+                intakein.setPower(1);
+            }if (G2DD) {
+                intakein.setPower(-1);
             }if (G1DD) { // Backwards
                 leftFront.setPower(-.5);
                 leftRear.setPower(-.5);
@@ -268,7 +272,7 @@ public class TestTeleop extends LinearOpMode {
                 gamepadRateLimit.reset();
                 rLift.setPower(0);
                 lLift.setPower(0);
-                vector.setPower(0);
+                intakein.setPower(0);
             }
 
             telemetry.addData("Status", "Running");
