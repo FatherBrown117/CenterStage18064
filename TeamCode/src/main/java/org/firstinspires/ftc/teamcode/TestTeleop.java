@@ -178,10 +178,6 @@ public class TestTeleop extends LinearOpMode {
                 leftRear.setPower(.5);
                 rightFront.setPower(.5);
                 rightRear.setPower(.5);
-            }if (G2UD) {
-                intakein.setPower(1);
-            }if (G2DD) {
-                intakein.setPower(-1);
             }if (G1DD) { // Backwards
                 leftFront.setPower(-.5);
                 leftRear.setPower(-.5);
@@ -200,6 +196,7 @@ public class TestTeleop extends LinearOpMode {
             }if (G2A) { // Intake + treadmill going up
                 leftIntake.setPower(1);
                 rightIntake.setPower(1);
+                intakein.setPower(1);
                 //dread.setPower(1);
                 pattern = RevBlinkinLedDriver.BlinkinPattern.SHOT_BLUE;
                 displayPattern();
@@ -212,6 +209,7 @@ public class TestTeleop extends LinearOpMode {
                 blinkinLedDriver.setPattern(pattern);
                 leftIntake.setPower(-1);
                 rightIntake.setPower(-1);
+                intakein.setPower(-1);
                 //dread.setPower(-1); //in ca
             }if (G1B) { // Diagonal: Lower Right (First controller)
                 leftFront.setPower(0);
@@ -244,9 +242,9 @@ public class TestTeleop extends LinearOpMode {
             }if (G2RT == 1) { // Linear pillars move down (second controller)
                 rLift.setPower(-1);
                 lLift.setPower(1);
-            }if (G2leftStickY > 0) { //linear SLIDE moves up (second controller)
+            }if (G2UD) { //linear SLIDE moves up (second controller)
                 dread.setPower(1);
-            }if (G2leftStickY < 0) { //linear SLIDE moves down (second controller)
+            }if (G2DD) { //linear SLIDE moves down (second controller)
                 dread.setPower(-1);
             }if (G2leftBumper) { //outtake moves inward (second controller)
                 leftPull.setPosition(1);
