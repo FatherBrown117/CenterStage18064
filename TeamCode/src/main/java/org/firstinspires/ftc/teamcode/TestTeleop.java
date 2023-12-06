@@ -260,7 +260,7 @@ public class TestTeleop extends LinearOpMode {
                 drone.setPosition(1);
                 //moving into claw and linear slides (second controller)
             }if (G2LT == 1) { // Linear pillars move up (second controller)
-                rLift.setPower(1);
+                rLift.setPower(1.01);
                 lLift.setPower(-1);
             }if (G2RT == 1) { // Linear pillars move down (second controller)
                 rLift.setPower(-1);
