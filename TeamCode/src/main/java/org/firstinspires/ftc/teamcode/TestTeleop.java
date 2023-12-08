@@ -167,26 +167,36 @@ public class TestTeleop extends LinearOpMode {
             // Forward and Backward (Left Stick)
 //aaaaa
 
-            if (G1UD) {
-                leftFront.setPower(.5);
-                leftRear.setPower(.5);
-                rightFront.setPower(.5);
-                rightRear.setPower(.5);
-            }if (G1DD) { // Backwards
-                leftFront.setPower(-.5);
-                leftRear.setPower(-.5);
-                rightFront.setPower(-.5);
-                rightRear.setPower(-.5);
-            }if (G1RD) { // Move right
-                leftFront.setPower(.5);
-                rightFront.setPower(-.5);
-                leftRear.setPower(-.5);
-                rightRear.setPower(.5);
-            }if (G1LD) { // Move left
-                leftFront.setPower(-.5);
-                rightFront.setPower(.5);
-                leftRear.setPower(.5);
-                rightRear.setPower(-.5);
+            if (G1leftStickY > 0) {
+                leftFront.setPower(1);
+                leftRear.setPower(1);
+                rightFront.setPower(1);
+                rightRear.setPower(1);
+            }if (G1leftStickY < 0) { // Backwards
+                leftFront.setPower(-1);
+                leftRear.setPower(-1);
+                rightFront.setPower(-1);
+                rightRear.setPower(-1);
+            }if (G1leftStickX < 0) { // Move right
+                leftFront.setPower(1);
+                rightFront.setPower(-1);
+                leftRear.setPower(-1);
+                rightRear.setPower(1);
+            }if (G1leftStickX > 0) { // Move left
+                leftFront.setPower(-1);
+                rightFront.setPower(1);
+                leftRear.setPower(1);
+                rightRear.setPower(-1);
+            }if (G1rightStickX > 0) { // Move left
+                leftFront.setPower(1);
+                rightFront.setPower(-1);
+                leftRear.setPower(1);
+                rightRear.setPower(-1);
+            }if (G1rightStickX < 0) { // Move left
+                leftFront.setPower(-1);
+                rightFront.setPower(1);
+                leftRear.setPower(-1);
+                rightRear.setPower(1);
             }if (G1UD) {
                 leftFront.setPower(.5);
                 leftRear.setPower(.5);
