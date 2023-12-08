@@ -12,7 +12,7 @@ import org.firstinspires.ftc.robotcore.internal.system.Deadline;
 
 import java.util.concurrent.TimeUnit;
 
-@TeleOp(name = "TestTeleop", group = "LinearOpMode")
+@TeleOp(name = "ahhhhhhhh", group = "LinearOpMode")
 
 public class ahhhhh extends LinearOpMode {
 
@@ -167,8 +167,8 @@ public class ahhhhh extends LinearOpMode {
             // Forward and Backward (Left Stick)
 //aaaaa
 
-            leftPower = -gamepad1.left_stick_y;
-            rightPower = -gamepad1.right_stick_y;
+            //leftPower = -gamepad1.left_stick_y;
+            //rightPower = -gamepad1.right_stick_y;
             //leftFront.setPower(leftPower);
             //leftRear.setPower(leftPower);
             //rightFront.setPower(-leftPower);
@@ -198,13 +198,13 @@ public class ahhhhh extends LinearOpMode {
                 //rightIntake.setPower(1);
                 //intakein.setPower(1);
                 //dread.setPower(1);
-                pattern = RevBlinkinLedDriver.BlinkinPattern.SHOT_BLUE;
-                displayPattern();
+                //pattern = RevBlinkinLedDriver.BlinkinPattern.SHOT_BLUE;
+                //displayPattern();
                 //gamepadRateLimit.reset();
                 //blinkinLedDriver.setPattern(pattern);
             }if (G2B) { // Outtake the Intake (reverse intake)
                 //pattern = RevBlinkinLedDriver.BlinkinPattern.SHOT_RED;
-                displayPattern();
+                //displayPattern();
                 //gamepadRateLimit.reset();
                 //blinkinLedDriver.setPattern(pattern);
                 //leftIntake.setPower(-1);
@@ -233,7 +233,7 @@ public class ahhhhh extends LinearOpMode {
                 //rightRear.setPower(1);
             }if (G2back) {
                 //drone.setPosition(0);
-                sleep(3000);
+                //sleep(3000);
                 //drone.setPosition(1);
                 //moving into claw and linear slides (second controller)
             }if (G2LT == 1) { // Linear pillars move up (second controller)

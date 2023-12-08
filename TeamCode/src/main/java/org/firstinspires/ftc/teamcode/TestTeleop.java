@@ -167,13 +167,27 @@ public class TestTeleop extends LinearOpMode {
             // Forward and Backward (Left Stick)
 //aaaaa
 
-            leftPower = -gamepad1.left_stick_y;
-            rightPower = -gamepad1.right_stick_y;
-            leftFront.setPower(leftPower);
-            leftRear.setPower(leftPower);
-            rightFront.setPower(-leftPower);
-            rightRear.setPower(-leftPower);
             if (G1UD) {
+                leftFront.setPower(.5);
+                leftRear.setPower(.5);
+                rightFront.setPower(.5);
+                rightRear.setPower(.5);
+            }if (G1DD) { // Backwards
+                leftFront.setPower(-.5);
+                leftRear.setPower(-.5);
+                rightFront.setPower(-.5);
+                rightRear.setPower(-.5);
+            }if (G1RD) { // Move right
+                leftFront.setPower(.5);
+                rightFront.setPower(-.5);
+                leftRear.setPower(-.5);
+                rightRear.setPower(.5);
+            }if (G1LD) { // Move left
+                leftFront.setPower(-.5);
+                rightFront.setPower(.5);
+                leftRear.setPower(.5);
+                rightRear.setPower(-.5);
+            }if (G1UD) {
                 leftFront.setPower(.5);
                 leftRear.setPower(.5);
                 rightFront.setPower(.5);
