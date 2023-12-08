@@ -1,20 +1,20 @@
 package org.firstinspires.ftc.teamcode;
-import static android.os.SystemClock.sleep;
 
+import com.qualcomm.hardware.rev.RevBlinkinLedDriver;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Servo;
-import com.qualcomm.robotcore.hardware.CRServo;
-import com.qualcomm.hardware.rev.RevBlinkinLedDriver;
-import com.qualcomm.robotcore.util.Range;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.robotcore.internal.system.Deadline;
+
 import java.util.concurrent.TimeUnit;
+
 @TeleOp(name = "TestTeleop", group = "LinearOpMode")
 
-public class TestTeleop extends LinearOpMode {
+public class ahhhhh extends LinearOpMode {
 
 
     private DcMotor leftFront = null;
@@ -169,108 +169,108 @@ public class TestTeleop extends LinearOpMode {
 
             leftPower = -gamepad1.left_stick_y;
             rightPower = -gamepad1.right_stick_y;
-            leftFront.setPower(leftPower);
-            leftRear.setPower(leftPower);
-            rightFront.setPower(-leftPower);
-            rightRear.setPower(-leftPower);
+            //leftFront.setPower(leftPower);
+            //leftRear.setPower(leftPower);
+            //rightFront.setPower(-leftPower);
+            //rightRear.setPower(-leftPower);
             if (G1UD) {
-                leftFront.setPower(.5);
-                leftRear.setPower(.5);
-                rightFront.setPower(.5);
-                rightRear.setPower(.5);
+                //leftFront.setPower(.5);
+                //leftRear.setPower(.5);
+                //rightFront.setPower(.5);
+                //rightRear.setPower(.5);
             }if (G1DD) { // Backwards
-                leftFront.setPower(-.5);
-                leftRear.setPower(-.5);
-                rightFront.setPower(-.5);
-                rightRear.setPower(-.5);
+                //leftFront.setPower(-.5);
+                //leftRear.setPower(-.5);
+                //rightFront.setPower(-.5);
+                //rightRear.setPower(-.5);
             }if (G1RD) { // Move right
-                leftFront.setPower(.5);
-                rightFront.setPower(-.5);
-                leftRear.setPower(-.5);
-                rightRear.setPower(.5);
+                //leftFront.setPower(.5);
+                //rightFront.setPower(-.5);
+                ///leftRear.setPower(-.5);
+                //rightRear.setPower(.5);
             }if (G1LD) { // Move left
-                leftFront.setPower(-.5);
-                rightFront.setPower(.5);
-                leftRear.setPower(.5);
-                rightRear.setPower(-.5);
+                //leftFront.setPower(-.5);
+                //rightFront.setPower(.5);
+                //leftRear.setPower(.5);
+                //rightRear.setPower(-.5);
             }if (G2A) { // Intake + treadmill going up
-                leftIntake.setPower(1);
-                rightIntake.setPower(1);
-                intakein.setPower(1);
+                //leftIntake.setPower(1);
+                //rightIntake.setPower(1);
+                //intakein.setPower(1);
                 //dread.setPower(1);
                 pattern = RevBlinkinLedDriver.BlinkinPattern.SHOT_BLUE;
                 displayPattern();
-                gamepadRateLimit.reset();
-                blinkinLedDriver.setPattern(pattern);
+                //gamepadRateLimit.reset();
+                //blinkinLedDriver.setPattern(pattern);
             }if (G2B) { // Outtake the Intake (reverse intake)
-                pattern = RevBlinkinLedDriver.BlinkinPattern.SHOT_RED;
+                //pattern = RevBlinkinLedDriver.BlinkinPattern.SHOT_RED;
                 displayPattern();
-                gamepadRateLimit.reset();
-                blinkinLedDriver.setPattern(pattern);
-                leftIntake.setPower(-1);
-                rightIntake.setPower(-1);
-                intakein.setPower(-1);
+                //gamepadRateLimit.reset();
+                //blinkinLedDriver.setPattern(pattern);
+                //leftIntake.setPower(-1);
+                //rightIntake.setPower(-1);
+                //intakein.setPower(-1);
                 //dread.setPower(-1); //in ca
             }if (G1B) { // Diagonal: Lower Right (First controller)
-                leftFront.setPower(0);
-                rightFront.setPower(-1);
-                leftRear.setPower(-1);
-                rightRear.setPower(0);
+                //leftFront.setPower(0);
+                //rightFront.setPower(-1);
+                //leftRear.setPower(-1);
+                //rightRear.setPower(0);
             }if (G1X) { // Diagonal: Upper Right (First controller)
-                leftFront.setPower(0);
-                rightFront.setPower(1);
-                leftRear.setPower(1);
-                rightRear.setPower(0);
+                //leftFront.setPower(0);
+                //rightFront.setPower(1);
+                //leftRear.setPower(1);
+                //rightRear.setPower(0);
             }if (G1A) {
-                leftFront.setPower(-1);
-                rightFront.setPower(0);
-                leftRear.setPower(0);
-                rightRear.setPower(-1);
+                //leftFront.setPower(-1);
+                //rightFront.setPower(0);
+                //leftRear.setPower(0);
+                //rightRear.setPower(-1);
             }if (G1Y) {
-                leftFront.setPower(1);
-                rightFront.setPower(0);
-                leftRear.setPower(0);
-                rightRear.setPower(1);
+                //leftFront.setPower(1);
+                //rightFront.setPower(0);
+                //leftRear.setPower(0);
+                //rightRear.setPower(1);
             }if (G2back) {
-                drone.setPosition(0);
+                //drone.setPosition(0);
                 sleep(3000);
-                drone.setPosition(1);
+                //drone.setPosition(1);
                 //moving into claw and linear slides (second controller)
             }if (G2LT == 1) { // Linear pillars move up (second controller)
-                rLift.setPower(1.01);
-                lLift.setPower(-1);
+                //rLift.setPower(1.01);
+                //lLift.setPower(-1);
             }if (G2RT == 1) { // Linear pillars move down (second controller)
-                rLift.setPower(-1);
-                lLift.setPower(1);
+                //rLift.setPower(-1);
+                //lLift.setPower(1);
             }if (G2UD) { //linear SLIDE moves up (second controller)
                 dread.setPower(1);
             }if (G2DD) { //linear SLIDE moves down (second controller)
                 dread.setPower(-1);
             }if (G2leftBumper) { //outtake moves inward (second controller)
-                leftPull.setPosition(1);
-                rightPull.setPosition(0);
+                //leftPull.setPosition(1);
+                //rightPull.setPosition(0);
             }if (G2rightBumper) { //outtake moves outward (second controller)
-                leftPull.setPosition(0);
-                rightPull.setPosition(1);
+                //leftPull.setPosition(0);
+                //rightPull.setPosition(1);
             }if (G2X) { //outtake outtake
                 outtake.setPosition(1);
             }if (G2Y) {
                 outtake.setPosition(0);
             } else { //STOP IN THE NAME OF THE LAW!
-                leftFront.setPower(0);
-                rightFront.setPower(0);
-                leftRear.setPower(0);
-                rightRear.setPower(0);
-                leftIntake.setPower(0);
-                rightIntake.setPower(0);
+                //leftFront.setPower(0);
+                //rightFront.setPower(0);
+                //leftRear.setPower(0);
+                //rightRear.setPower(0);
+                //leftIntake.setPower(0);
+                //rightIntake.setPower(0);
                 dread.setPower(0);
-                pattern = RevBlinkinLedDriver.BlinkinPattern.BLACK;
-                blinkinLedDriver.setPattern(pattern);
+                //pattern = RevBlinkinLedDriver.BlinkinPattern.BLACK;
+                //blinkinLedDriver.setPattern(pattern);
                 displayPattern();
-                gamepadRateLimit.reset();
-                rLift.setPower(0);
-                lLift.setPower(0);
-                intakein.setPower(0);
+                //gamepadRateLimit.reset();
+                //rLift.setPower(0);
+                //lLift.setPower(0);
+                //intakein.setPower(0);
             }
 
             telemetry.addData("Status", "Running");
