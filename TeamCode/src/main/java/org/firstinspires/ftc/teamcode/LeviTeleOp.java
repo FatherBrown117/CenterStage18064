@@ -163,45 +163,78 @@ public class LeviTeleOp extends LinearOpMode {
             leftRear.setPower(left/2);
             rightRear.setPower(right/2);
 
+            if (gamepad1.left_bumper) {
+                leftFront.setPower(-1);
+                leftRear.setPower(1);
+                rightFront.setPower(1);
+                rightRear.setPower(-1);
+            } else if (gamepad1.right_bumper) {
+                leftFront.setPower(1);
+                leftRear.setPower(-1);
+                rightFront.setPower(-1);
+                rightRear.setPower(1);
+            }
+
             if (G2A) { // Intake + treadmill going up
                 leftIntake.setPower(1);
                 rightIntake.setPower(1);
                 intakein.setPower(1);
                 //dread.setPower(1);
                 gamepadRateLimit.reset();
-            }if (G2B) { // Outtake the Intake (reverse intake)
+            } else if (G2B) { // Outtake the Intake (reverse intake)
                 gamepadRateLimit.reset();
                 leftIntake.setPower(-1);
                 rightIntake.setPower(-1);
                 intakein.setPower(-1);
                 //dread.setPower(-1);
-            }if (G2back) {
+            } else {
+                leftIntake.setPower(0);
+                rightIntake.setPower(0);
+                intakein.setPower(0);
+            }
+
+            if (G2back) {
+                leftPull.setPosition(0.5);
                 drone.setPosition(0);
                 sleep(3000);
                 drone.setPosition(1);
-                //moving into claw and linear slides (second controller)
-            }if (G2LT == 1) { // Linear pillars move up (second controller)
-                rLift.setPower(1.01);
-                lLift.setPower(-1);
-            }if (G2RT == 1) { // Linear pillars move down (second controller)
-                rLift.setPower(-1);
-                lLift.setPower(1);
-            }if (G2UD) { //linear SLIDE moves up (second controller)
-                dread.setPower(1);
-            }if (G2DD) { //linear SLIDE moves down (second controller)
-                dread.setPower(-1);
-            }if (G2leftBumper) { //outtake moves inward (second controller)
-                leftPull.setPosition(1);
-                rightPull.setPosition(0);
-            }if (G2rightBumper) { //outtake moves outward (second controller)
+                sleep(2000);
                 leftPull.setPosition(0);
-                rightPull.setPosition(1);
-            }if (G2X) { //outtake outtake
-                outtake.setPosition(1);
-            }if (G2Y) {
-                outtake.setPosition(0);
+                //moving into claw and linear slides (second controller)
             }
 
+            if (G2LT == 1) { // Linear pillars move up (second controller)
+                rLift.setPower(1);
+                lLift.setPower(-0.99);
+            } else if (G2RT == 1) { // Linear pillars move down (second controller)
+                rLift.setPower(-1);
+                lLift.setPower(1);
+            } else {
+                rLift.setPower(0);
+                lLift.setPower(0);
+            }
+
+            if (G2UD) { //linear SLIDE moves up (second controller)
+                dread.setPower(1);
+            } else if (G2DD) { //linear SLIDE moves down (second controller)
+                dread.setPower(-1);
+            } else {
+                dread.setPower(0);
+            }
+
+            if (G2leftBumper) { //outtake moves inward (second controller)
+                leftPull.setPosition(1);
+                //rightPull.setPosition(0);
+            } else if (G2rightBumper) { //outtake moves outward (second controller)
+                leftPull.setPosition(0);
+                //rightPull.setPosition(1);
+            }
+
+            if (gamepad1.right_trigger == 1) { //outtake outtake
+                outtake.setPosition(0);
+            } else {
+                outtake.setPosition(1);
+            }
         }
     }
 }
