@@ -4,6 +4,7 @@ import static android.os.SystemClock.sleep;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.hardware.rev.RevBlinkinLedDriver;
@@ -121,7 +122,6 @@ public class TestTeleop extends LinearOpMode {
             double G1leftStickX = gamepad1.left_stick_x;
             //leftPower = Range.clip(G1leftStickY +G1rightStickX, -1.0, 1.0);
             //rightPower = Range.clip(G1leftStickY -G1rightStickX, -1.0, 1.0);
-
             boolean G1rightBumper = gamepad1.right_bumper;
             boolean G1leftBumper = gamepad1.left_bumper;
             boolean G1UD = gamepad1.dpad_up;   // up dpad
