@@ -256,6 +256,9 @@ public class TestTeleop extends LinearOpMode {
                 leftRear.setPower(0);
                 rightRear.setPower(1);
             }if (G2back) {
+                leftPull.setPosition(.5);
+                rightPull.setPosition(.5);
+                sleep(2000);
                 drone.setPosition(0);
                 sleep(3000);
                 drone.setPosition(1);
