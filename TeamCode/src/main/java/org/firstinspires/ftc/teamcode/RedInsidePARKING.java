@@ -57,15 +57,7 @@ public class RedInsidePARKING extends LinearOpMode {
         waitForStart();
         while(opModeIsActive()) {
             strafeRight(50, 0.3);
-            driveBackward(1300, 0.3);
-            sleep(1000);
-            leftIntake.setPower(1);
-            rightIntake.setPower(1);
-            dread.setPower(1);
-            sleep(8000);
-            leftIntake.setPower(0);
-            rightIntake.setPower(0);
-            dread.setPower(0);
+            driveBackward(1650, 0.3);
             sleep(30000);
         }
 
@@ -78,10 +70,8 @@ public class RedInsidePARKING extends LinearOpMode {
         rightFront.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         leftFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         rightFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        leftRear.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        rightRear.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        rightRear.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        leftRear.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        rightRear.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        leftRear.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
         leftFront.setPower(power);
         rightFront.setPower(power);
@@ -109,15 +99,13 @@ public class RedInsidePARKING extends LinearOpMode {
         rightFront.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         leftFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         rightFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        leftRear.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        rightRear.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        rightRear.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        leftRear.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        rightRear.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        leftRear.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
-        leftFront.setPower(power * -1);
-        rightFront.setPower(power * -1);
-        leftRear.setPower(power * -1);
-        rightRear.setPower(power * -1);
+        leftFront.setPower(-power);
+        rightFront.setPower(-power);
+        leftRear.setPower(-power);
+        rightRear.setPower(-power);
 
         while (-rightFront.getCurrentPosition() < distance) {
             telemetry.addData("Left Encoder", rightFront.getCurrentPosition());
@@ -140,14 +128,12 @@ public class RedInsidePARKING extends LinearOpMode {
         rightFront.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         leftFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         rightFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        leftRear.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        rightRear.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        rightRear.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        leftRear.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        rightRear.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        leftRear.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
         leftFront.setPower(power);
-        rightFront.setPower(power * -1);
-        leftRear.setPower(power * -1);
+        rightFront.setPower(-power);
+        leftRear.setPower(-power);
         rightRear.setPower(power);
 
         while (-rightFront.getCurrentPosition() < distance) {
@@ -171,15 +157,13 @@ public class RedInsidePARKING extends LinearOpMode {
         rightFront.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         leftFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         rightFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        leftRear.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        rightRear.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        rightRear.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        leftRear.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        rightRear.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        leftRear.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
-        leftFront.setPower(power * -1);
+        leftFront.setPower(-power);
         rightFront.setPower(power);
         leftRear.setPower(power);
-        rightRear.setPower(power * -1);
+        rightRear.setPower(-power);
 
         while (rightFront.getCurrentPosition() < distance) {
             telemetry.addData("Left Encoder", rightFront.getCurrentPosition());
@@ -204,15 +188,13 @@ public class RedInsidePARKING extends LinearOpMode {
         rightFront.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         leftFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         rightFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        leftRear.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        rightRear.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        rightRear.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        leftRear.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        rightRear.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        leftRear.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
         leftFront.setPower(power);
-        rightFront.setPower(power * -1);
+        rightFront.setPower(-power);
         leftRear.setPower(power);
-        rightRear.setPower(power * -1);
+        rightRear.setPower(-power);
 
         while (-rightFront.getCurrentPosition() < distance) {
             telemetry.addData("Left Encoder", rightFront.getCurrentPosition());
@@ -235,14 +217,12 @@ public class RedInsidePARKING extends LinearOpMode {
         rightFront.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         leftFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         rightFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        leftRear.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        rightRear.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        rightRear.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        leftRear.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        rightRear.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        leftRear.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
-        leftFront.setPower(power * -1);
+        leftFront.setPower(-power);
         rightFront.setPower(power);
-        leftRear.setPower(power * -1);
+        leftRear.setPower(-power);
         rightRear.setPower(power);
 
         while (rightFront.getCurrentPosition() < distance) {
@@ -259,4 +239,3 @@ public class RedInsidePARKING extends LinearOpMode {
 
     }
 }
-//Aidan was here

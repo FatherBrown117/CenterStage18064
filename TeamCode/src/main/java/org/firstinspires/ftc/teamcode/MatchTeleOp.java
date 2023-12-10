@@ -1,6 +1,5 @@
 package org.firstinspires.ftc.teamcode;
 
-import com.qualcomm.hardware.rev.RevBlinkinLedDriver;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.CRServo;
@@ -12,9 +11,9 @@ import org.firstinspires.ftc.robotcore.internal.system.Deadline;
 
 import java.util.concurrent.TimeUnit;
 
-@TeleOp(name = "LeviTeleOp", group = "LinearOpMode")
+@TeleOp(name = "MatchTeleOp", group = "LinearOpMode")
 
-public class LeviTeleOp extends LinearOpMode {
+public class MatchTeleOp extends LinearOpMode {
 
 
     private DcMotor leftFront = null;
@@ -29,7 +28,7 @@ public class LeviTeleOp extends LinearOpMode {
     private CRServo dread = null;
     private Servo leftPull = null;
     private Servo rightPull = null;
-    private Servo drone = null;
+    private CRServo drone = null;
     private Servo outtake = null;
 
 
@@ -80,7 +79,7 @@ public class LeviTeleOp extends LinearOpMode {
         intakein = hardwareMap.get(CRServo.class,"intakein");
         rightPull = hardwareMap.get(Servo.class, "rightPull");
         leftPull = hardwareMap.get(Servo.class, "leftPull");
-        drone = hardwareMap.get(Servo.class,"drone");
+        drone = hardwareMap.get(CRServo.class,"drone");
         outtake = hardwareMap.get(Servo.class,"outtake");
 
         leftFront.setDirection(DcMotor.Direction.REVERSE);
@@ -163,12 +162,12 @@ public class LeviTeleOp extends LinearOpMode {
             leftRear.setPower(left/2);
             rightRear.setPower(right/2);
 
-            if (gamepad1.left_bumper) {
+            if (gamepad1.right_bumper) {
                 leftFront.setPower(-1);
                 leftRear.setPower(1);
                 rightFront.setPower(1);
                 rightRear.setPower(-1);
-            } else if (gamepad1.right_bumper) {
+            } else if (gamepad1.left_bumper) {
                 leftFront.setPower(1);
                 leftRear.setPower(-1);
                 rightFront.setPower(-1);
@@ -178,15 +177,13 @@ public class LeviTeleOp extends LinearOpMode {
             if (G2A) { // Intake + treadmill going up
                 leftIntake.setPower(1);
                 rightIntake.setPower(1);
-                intakein.setPower(1);
-                //dread.setPower(1);
+                intakein.setPower(0.5);
                 gamepadRateLimit.reset();
-            } else if (G2B) { // Outtake the Intake (reverse intake)
-                gamepadRateLimit.reset();
+            } else if (G2B) { // Outtake the Intake (reverse intake
                 leftIntake.setPower(-1);
                 rightIntake.setPower(-1);
-                intakein.setPower(-1);
-                //dread.setPower(-1);
+                intakein.setPower(-0.5);
+                gamepadRateLimit.reset();
             } else {
                 leftIntake.setPower(0);
                 rightIntake.setPower(0);
@@ -195,11 +192,11 @@ public class LeviTeleOp extends LinearOpMode {
 
             if (G2back) {
                 leftPull.setPosition(0.5);
-                drone.setPosition(0);
-                sleep(3000);
-                drone.setPosition(1);
-                sleep(2000);
+                sleep(1000);
+                drone.setPower(-1);
+                sleep(500);
                 leftPull.setPosition(0);
+                drone.setPower(0);
                 //moving into claw and linear slides (second controller)
             }
 
@@ -215,9 +212,9 @@ public class LeviTeleOp extends LinearOpMode {
             }
 
             if (G2UD) { //linear SLIDE moves up (second controller)
-                dread.setPower(1);
-            } else if (G2DD) { //linear SLIDE moves down (second controller)
                 dread.setPower(-1);
+            } else if (G2DD) { //linear SLIDE moves down (second controller)
+                dread.setPower(1);
             } else {
                 dread.setPower(0);
             }
