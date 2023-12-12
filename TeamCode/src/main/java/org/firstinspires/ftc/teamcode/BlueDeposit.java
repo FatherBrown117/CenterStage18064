@@ -6,7 +6,7 @@ import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Servo;
 
-@Autonomous(name ="BlueInsidePARKING", group="Linear Opmode")
+@Autonomous(name ="BlueDeposit", group="Linear Opmode")
 public class BlueDeposit extends LinearOpMode {
 
     private DcMotor leftFront = null;
