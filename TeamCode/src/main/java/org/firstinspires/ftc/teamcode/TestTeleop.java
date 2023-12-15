@@ -19,13 +19,9 @@ public class TestTeleop extends LinearOpMode {
 
 
     private DcMotor leftFront = null;
-    private DcMotor leftFrontb = null;
     private DcMotor rightFront = null;
-    private DcMotor rightFrontb = null;
     private DcMotor leftRear = null;
-    private DcMotor leftRearb = null;
     private DcMotor rightRear = null;
-    private DcMotor rightRearb = null;
     private DcMotor rLift = null;
     private DcMotor lLift = null;
     private CRServo intakein = null;
@@ -72,13 +68,9 @@ public class TestTeleop extends LinearOpMode {
         telemetry.update();
 
         leftFront = hardwareMap.get(DcMotor.class,"leftFront"); //frontleft, port 0
-        leftFrontb = hardwareMap.get(DcMotor.class,"leftFront");
         rightFront = hardwareMap.get(DcMotor.class,"rightFront");  //frontright, port 1
-        rightFrontb = hardwareMap.get(DcMotor.class,"rightFront");  //frontright, port 1
         leftRear = hardwareMap.get(DcMotor.class,"leftRear"); //backleft, port 3
-        leftRearb = hardwareMap.get(DcMotor.class,"leftRear");
         rightRear = hardwareMap.get(DcMotor.class,"rightRear");  //backright, port 2
-        rightRearb = hardwareMap.get(DcMotor.class,"rightRear");
         rLift = hardwareMap.get(DcMotor.class,"rLift");
         lLift = hardwareMap.get(DcMotor.class,"lLift");
         leftIntake = hardwareMap.get(CRServo.class,"leftIntake");
@@ -91,13 +83,9 @@ public class TestTeleop extends LinearOpMode {
         outtake = hardwareMap.get(Servo.class,"outtake");
 
         leftFront.setDirection(DcMotor.Direction.FORWARD);
-        leftFrontb.setDirection(DcMotor.Direction.REVERSE);
-        rightFront.setDirection(DcMotor.Direction.FORWARD);
-        rightFrontb.setDirection(DcMotor.Direction.FORWARD);
+        rightFront.setDirection(DcMotor.Direction.REVERSE);
         leftRear.setDirection(DcMotor.Direction.FORWARD);
-        leftRearb.setDirection(DcMotor.Direction.FORWARD);
         rightRear.setDirection(DcMotor.Direction.REVERSE);
-        rightRearb.setDirection(DcMotor.Direction.REVERSE);
         rLift.setDirection(DcMotor.Direction.FORWARD);
         lLift.setDirection(DcMotor.Direction.REVERSE);
         displayKind = Blink.DisplayKind.AUTO;

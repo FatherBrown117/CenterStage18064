@@ -6,8 +6,8 @@ import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Servo;
 
-@Autonomous(name ="BlueInsidePARKING", group="Linear Opmode")
-public class BlueInsidePARKING extends LinearOpMode {
+@Autonomous(name ="BlueDeposit", group="Linear Opmode")
+public class BlueDeposit extends LinearOpMode {
 
     private DcMotor leftFront = null;
     private DcMotor rightFront = null;
@@ -18,6 +18,7 @@ public class BlueInsidePARKING extends LinearOpMode {
     //private DcMotor vector = null;
     private CRServo leftIntake = null;
     private CRServo rightIntake = null;
+    private CRServo intakein = null;
     private CRServo dread = null;
     private Servo leftPull = null;
     private Servo rightPull = null;
@@ -34,6 +35,7 @@ public class BlueInsidePARKING extends LinearOpMode {
         lLift = hardwareMap.get(DcMotor.class,"lLift");
         leftIntake = hardwareMap.get(CRServo.class,"leftIntake");
         rightIntake = hardwareMap.get(CRServo.class,"rightIntake");
+        intakein = hardwareMap.get(CRServo.class,"intakein");
         dread = hardwareMap.get(CRServo.class,"dread");
         //vector = hardwareMap.get(DcMotor.class,"vector");
 
@@ -57,8 +59,14 @@ public class BlueInsidePARKING extends LinearOpMode {
         waitForStart();
         while(opModeIsActive()) {
             
-            strafeLeft(50, 0.3);
-            driveBackward(1650, 0.3);
+            driveForward(580, 0.3);
+
+            //outtake
+            leftIntake.setPower(-1);
+            rightIntake.setPower(-1);
+            intakein.setPower(-0.5);
+
+
             sleep(30000);
         }
 
