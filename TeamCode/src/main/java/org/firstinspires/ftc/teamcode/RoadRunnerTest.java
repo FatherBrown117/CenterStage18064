@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode;
 
 import com.acmerobotics.roadrunner.Pose2d;
+import com.acmerobotics.roadrunner.Trajectory;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.CRServo;
@@ -26,6 +27,8 @@ public class RoadRunnerTest extends LinearOpMode {
     @Override
     public void runOpMode() throws InterruptedException {
 
+        MecanumDrive drive = new MecanumDrive(hardwareMap, new Pose2d(0, 0, 0));
+
         //hardware mapping
         leftFront = hardwareMap.get(DcMotor.class,"leftFront"); //frontleft, port 0
         rightFront = hardwareMap.get(DcMotor.class,"rightFront");  //frontright, port 1
@@ -49,14 +52,14 @@ public class RoadRunnerTest extends LinearOpMode {
         lLift.setDirection(DcMotor.Direction.REVERSE);
         //vector.setDirection(DcMotor.Direction.FORWARD);
 
-        Pose2d start = new Pose2d(0,0,0);
-
+        Trajectory myTrajectory = drive.trajectoryBuilder(new Pose2d(0,0,0))
+                .strafeRight(10)
+                .forward(5)
+                .build();
 
 
         waitForStart();
         while(opModeIsActive()) {
-            driveForward(300);
-            sleep(30000);
 
         }
         //.splineTo(new Pose2d(15, 15, 0))
@@ -282,5 +285,9 @@ public class RoadRunnerTest extends LinearOpMode {
         sleep(500);
 
     }
+
+
+
+
 }
 //Aidan was here
