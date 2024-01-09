@@ -29,29 +29,6 @@ public class RoadRunnerTest extends LinearOpMode {
 
         MecanumDrive drive = new MecanumDrive(hardwareMap, new Pose2d(0, 0, 0));
 
-        //hardware mapping
-        leftFront = hardwareMap.get(DcMotor.class,"leftFront"); //frontleft, port 0
-        rightFront = hardwareMap.get(DcMotor.class,"rightFront");  //frontright, port 1
-        leftBack = hardwareMap.get(DcMotor.class,"leftBack"); //backleft, port 3
-        rightBack = hardwareMap.get(DcMotor.class,"rightBack");  //backright, port 2
-        rLift = hardwareMap.get(DcMotor.class,"rLift");
-        lLift = hardwareMap.get(DcMotor.class,"lLift");
-        leftIntake = hardwareMap.get(CRServo.class,"leftIntake");
-        rightIntake = hardwareMap.get(CRServo.class,"rightIntake");
-        dread = hardwareMap.get(CRServo.class,"dread");
-        //vector = hardwareMap.get(DcMotor.class,"vector");
-
-        rightPull = hardwareMap.get(Servo.class, "rightPull");
-        leftPull = hardwareMap.get(Servo.class, "leftPull");
-
-        leftFront.setDirection(DcMotor.Direction.REVERSE);
-        rightFront.setDirection(DcMotor.Direction.FORWARD);
-        leftBack.setDirection(DcMotor.Direction.REVERSE);
-        rightBack.setDirection(DcMotor.Direction.REVERSE);
-        rLift.setDirection(DcMotor.Direction.FORWARD);
-        lLift.setDirection(DcMotor.Direction.REVERSE);
-        //vector.setDirection(DcMotor.Direction.FORWARD);
-
         Trajectory myTrajectory = drive.trajectoryBuilder(new Pose2d(0,0,0))
                 .strafeRight(10)
                 .forward(5)
@@ -60,7 +37,7 @@ public class RoadRunnerTest extends LinearOpMode {
 
         waitForStart();
         while(opModeIsActive()) {
-
+            drive.FollowTrajectoryAction(myTrajectory);
         }
         //.splineTo(new Pose2d(15, 15, 0))
 
