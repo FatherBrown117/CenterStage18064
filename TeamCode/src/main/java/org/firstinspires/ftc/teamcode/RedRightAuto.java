@@ -31,7 +31,6 @@ package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Servo;
@@ -67,6 +66,8 @@ public class     RedRightAuto extends LinearOpMode {
     private CRServo dread = null;
     private Servo leftPull = null;
     private Servo rightPull = null;
+    private Servo outtake = null;
+    private CRServo intakein = null;
     private static final boolean USE_WEBCAM = true;  // true for webcam, false for phone camera
 
     // TFOD_MODEL_ASSET points to a model file stored in the project Asset location,
@@ -102,8 +103,10 @@ public class     RedRightAuto extends LinearOpMode {
         lLift = hardwareMap.get(DcMotor.class,"lLift");
         leftIntake = hardwareMap.get(CRServo.class,"leftIntake");
         rightIntake = hardwareMap.get(CRServo.class,"rightIntake");
+        intakein = hardwareMap.get(CRServo.class,"intakein");
         dread = hardwareMap.get(CRServo.class,"dread");
         //vector = hardwareMap.get(DcMotor.class,"vector");
+        outtake = hardwareMap.get(Servo.class,"outtake");
 
         rightPull = hardwareMap.get(Servo.class, "rightPull");
         leftPull = hardwareMap.get(Servo.class, "leftPull");
@@ -139,36 +142,41 @@ public class     RedRightAuto extends LinearOpMode {
 
                 if (spikeLocation() == 3) {
 
-                    driveForward(100,0.3);
+                    /*driveForward(100,0.3);
                     turnRight(100,0.3);
                     //servo drop first pixel, purple
                     turnLeft(100,0.3);
                     driveBackward(100,0.3);
                     strafeRight(100,0.3);
                     //servo drop second pixel, yellow
-
+                    */
 
                 } else if (spikeLocation() == 2) {
 
-                    //driveBackward(870, 0.25);
-                    //turnRight(640, 0.1);
-                    //servo drop first pixel, purple
-                    /*obj.driveBackward(100);
-                    obj.strafeRight(100);
-                    //servo drop second pixel, yellow
-                    */
+                    driveBackward(950,0.3);
+                    turnLeft(1625, 0.3);
+                    frontDeposit();
+                    turnLeft(715,0.3);
+                    driveBackward(1600,0.3);
                     //CODE TO DEPOSIT PRELOAD ON CENTER SPIKE MARK
                     //ORIENT ROBOT
                 } else {
-
-                    /*obj.driveForward(100);
-                    obj.turnLeft(100);
+                    driveBackward(1185,0.5);
+                    turnRight(685,0.5);
+                    driveForward(135,0.5);
+                    frontDeposit();
                     //servo drop first pixel, purple
-                    obj.turnRight(100);
-                    obj.driveBackward(100);
-                    obj.strafeRight(100);
-                    //servo drop second pixel, yellow
-                    */
+                    //turnLeft(360,0.3);
+                    driveBackward(1735,0.5);
+                    strafeRight(135,0.6);
+                    //strafeRight(170,0.3);
+                    dreadOut(2500);
+                    backdropDeposit();
+                    dreadIn(1000);
+                    driveForward(135,0.5);
+                    strafeLeft(1385,0.6);
+                    driveBackward(235,0.5);
+
                     //CODE TO DEPOSIT PRELOAD ON LEFT SPIKE MARK
                     //ORIENT ROBOT
                 }
@@ -251,7 +259,7 @@ public class     RedRightAuto extends LinearOpMode {
         visionPortal = builder.build();
 
         // Set confidence threshold for TFOD recognitions, at any time.
-        //tfod.setMinResultConfidence(0.75f);
+        tfod.setMinResultConfidence(0.75f);
 
         // Disable or re-enable the TFOD processor at any time.
         //visionPortal.setProcessorEnabled(tfod, true);
@@ -312,8 +320,8 @@ public class     RedRightAuto extends LinearOpMode {
         rightFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         leftRear.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         rightRear.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        rightRear.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        leftRear.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        rightRear.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        leftRear.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
         leftFront.setPower(power);
         rightFront.setPower(power);
@@ -343,8 +351,8 @@ public class     RedRightAuto extends LinearOpMode {
         rightFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         leftRear.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         rightRear.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        rightRear.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        leftRear.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        rightRear.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        leftRear.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
         leftFront.setPower(power * -1);
         rightFront.setPower(power * -1);
@@ -374,8 +382,8 @@ public class     RedRightAuto extends LinearOpMode {
         rightFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         leftRear.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         rightRear.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        rightRear.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        leftRear.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        rightRear.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        leftRear.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
         leftFront.setPower(power);
         rightFront.setPower(power * -1);
@@ -405,8 +413,8 @@ public class     RedRightAuto extends LinearOpMode {
         rightFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         leftRear.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         rightRear.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        rightRear.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        leftRear.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        rightRear.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        leftRear.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
         leftFront.setPower(power * -1);
         rightFront.setPower(power);
@@ -438,8 +446,8 @@ public class     RedRightAuto extends LinearOpMode {
         rightFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         leftRear.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         rightRear.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        rightRear.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        leftRear.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        rightRear.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        leftRear.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
         leftFront.setPower(power);
         rightFront.setPower(power * -1);
@@ -469,8 +477,8 @@ public class     RedRightAuto extends LinearOpMode {
         rightFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         leftRear.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         rightRear.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        rightRear.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        leftRear.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        rightRear.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        leftRear.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
         leftFront.setPower(power * -1);
         rightFront.setPower(power);
@@ -489,6 +497,41 @@ public class     RedRightAuto extends LinearOpMode {
 
         sleep(500);
 
+    }
+
+    public void dreadOut(int time) {
+
+        dread.setPower(-1);
+        sleep(time);
+        dread.setPower(0);
+
+        sleep(500);
+
+    }
+
+    public void backdropDeposit() {
+        outtake.setPosition(0);
+        sleep(3000);
+        outtake.setPosition(1);
+        sleep(1000);
+    }
+
+    public void dreadIn(int time) {
+
+        dread.setPower(1);
+        sleep(time);
+        dread.setPower(0);
+
+        sleep(500);
+
+    }
+
+    public void frontDeposit() {
+        rightIntake.setPower(1);
+
+        sleep(1000);
+
+        rightIntake.setPower(0);
     }
 
 }   // end class

@@ -1,7 +1,6 @@
 package org.firstinspires.ftc.teamcode;
 
 import com.acmerobotics.roadrunner.Pose2d;
-import com.acmerobotics.roadrunner.Trajectory;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.CRServo;
@@ -29,15 +28,15 @@ public class RoadRunnerTest extends LinearOpMode {
 
         MecanumDrive drive = new MecanumDrive(hardwareMap, new Pose2d(0, 0, 0));
 
-        Trajectory myTrajectory = drive.trajectoryBuilder(new Pose2d(0,0,0))
+       /* Trajectory myTrajectory = drive.trajectoryBuilder(new Pose2d(0,0,0))
                 .strafeRight(10)
                 .forward(5)
                 .build();
 
-
+        */
         waitForStart();
         while(opModeIsActive()) {
-            drive.FollowTrajectoryAction(myTrajectory);
+            //drive.FollowTrajectoryAction(myTrajectory);
         }
         //.splineTo(new Pose2d(15, 15, 0))
 
