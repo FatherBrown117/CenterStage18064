@@ -115,7 +115,7 @@ public class     RedRightAuto extends LinearOpMode {
 
         leftFront.setDirection(DcMotor.Direction.REVERSE);
         rightFront.setDirection(DcMotor.Direction.FORWARD);
-        leftRear.setDirection(DcMotor.Direction.FORWARD);
+        leftRear.setDirection(DcMotor.Direction.REVERSE);
         rightRear.setDirection(DcMotor.Direction.REVERSE);
         rLift.setDirection(DcMotor.Direction.FORWARD);
         lLift.setDirection(DcMotor.Direction.REVERSE);
@@ -139,19 +139,19 @@ public class     RedRightAuto extends LinearOpMode {
 
                 if (spikeLocation() == 3) {
 
-                    /*obj.driveForward(100);
-                    obj.turnRight(100);
+                    driveForward(100,0.3);
+                    turnRight(100,0.3);
                     //servo drop first pixel, purple
-                    obj.turnLeft(100);
-                    obj.driveBackward(100);
-                    obj.strafeRight(100);
+                    turnLeft(100,0.3);
+                    driveBackward(100,0.3);
+                    strafeRight(100,0.3);
                     //servo drop second pixel, yellow
-                    */
+
 
                 } else if (spikeLocation() == 2) {
 
-                    driveBackward(870, 0.25);
-                    turnRight(640, 0.1);
+                    //driveBackward(870, 0.25);
+                    //turnRight(640, 0.1);
                     //servo drop first pixel, purple
                     /*obj.driveBackward(100);
                     obj.strafeRight(100);
