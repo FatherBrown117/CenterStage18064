@@ -1,13 +1,14 @@
 package org.firstinspires.ftc.teamcode;
 
+import com.acmerobotics.roadrunner.Pose2d;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Servo;
 
-@Autonomous(name ="BlueDeposit", group="Linear Opmode")
-public class BlueDeposit extends LinearOpMode {
+@Autonomous(name ="RoadRunnerTest", group="Linear Opmode")
+public class RoadRunnerTest extends LinearOpMode {
 
     private DcMotor leftFront = null;
     private DcMotor rightFront = null;
@@ -18,7 +19,6 @@ public class BlueDeposit extends LinearOpMode {
     //private DcMotor vector = null;
     private CRServo leftIntake = null;
     private CRServo rightIntake = null;
-    private CRServo intakein = null;
     private CRServo dread = null;
     private Servo leftPull = null;
     private Servo rightPull = null;
@@ -26,171 +26,64 @@ public class BlueDeposit extends LinearOpMode {
     @Override
     public void runOpMode() throws InterruptedException {
 
-        //hardware mapping
-        leftFront = hardwareMap.get(DcMotor.class,"leftFront"); //frontleft, port 0
-        rightFront = hardwareMap.get(DcMotor.class,"rightFront");  //frontright, port 1
-        leftBack = hardwareMap.get(DcMotor.class,"leftBack"); //backleft, port 3
-        rightBack = hardwareMap.get(DcMotor.class,"rightBack");  //backright, port 2
-        rLift = hardwareMap.get(DcMotor.class,"rLift");
-        lLift = hardwareMap.get(DcMotor.class,"lLift");
-        leftIntake = hardwareMap.get(CRServo.class,"leftIntake");
-        rightIntake = hardwareMap.get(CRServo.class,"rightIntake");
-        intakein = hardwareMap.get(CRServo.class,"intakein");
-        dread = hardwareMap.get(CRServo.class,"dread");
-        //vector = hardwareMap.get(DcMotor.class,"vector");
+        MecanumDrive drive = new MecanumDrive(hardwareMap, new Pose2d(0, 0, 0));
 
-        rightPull = hardwareMap.get(Servo.class, "rightPull");
-        leftPull = hardwareMap.get(Servo.class, "leftPull");
+       /* Trajectory myTrajectory = drive.trajectoryBuilder(new Pose2d(0,0,0))
+                .strafeRight(10)
+                .forward(5)
+                .build();
 
-        rightFront.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        leftFront.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        leftBack.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        rightBack.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-
-        leftFront.setDirection(DcMotor.Direction.REVERSE);
-        rightFront.setDirection(DcMotor.Direction.FORWARD);
-        leftBack.setDirection(DcMotor.Direction.REVERSE);
-        rightBack.setDirection(DcMotor.Direction.REVERSE);
-        rLift.setDirection(DcMotor.Direction.FORWARD);
-        lLift.setDirection(DcMotor.Direction.REVERSE);
-        //vector.setDirection(DcMotor.Direction.FORWARD);
-        //displayKind = Blink.DisplayKind.AUTO;
-
+        */
         waitForStart();
         while(opModeIsActive()) {
-            
-            driveForward(580, 0.3);
-
-            //outtake
-            leftIntake.setPower(-1);
-            rightIntake.setPower(-1);
-            intakein.setPower(-0.5);
-
-
-            sleep(30000);
+            //drive.FollowTrajectoryAction(myTrajectory);
         }
+        //.splineTo(new Pose2d(15, 15, 0))
 
     }
 
-    public void driveForward(double distance, double power) {
+    public double arm_distance(float inches) {
+        return inches * (537.6 / (1.5 * 3.141592));
+    }
+
+    public double distance(float inches) {
+        //537.6 pulses per rotation
+        return inches * (537.6 / (3.75 * 3.141592));
+    }
+
+    public void driveForward(double distance) {
 
         //Reset Encoders
-        leftFront.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        rightFront.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        leftFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        rightFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        rightBack.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        leftBack.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        //leftFront.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        //rightFront.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        //leftFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        //rightFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        //leftBack.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        rightBack.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        rightBack.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        //leftBack.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
-        leftFront.setPower(power);
-        rightFront.setPower(power);
-        leftBack.setPower(power);
-        rightBack.setPower(power);
+        //leftFront.setPower(0.5);
+        //rightFront.setPower(0.5);
+        //leftBack.setPower(0.5);
+        rightBack.setPower(0.5);
 
-        while (rightFront.getCurrentPosition() < distance) {
-            telemetry.addData("Left Encoder", rightFront.getCurrentPosition());
+
+        while (-rightBack.getCurrentPosition() < distance) {
+            telemetry.addData("Encoder", rightBack.getCurrentPosition());
             telemetry.update();
         }
 
-        leftFront.setPower(0);
-        rightFront.setPower(0);
-        leftBack.setPower(0);
+        //leftFront.setPower(0);
+        //rightFront.setPower(0);
+        //leftBack.setPower(0);
         rightBack.setPower(0);
 
         sleep(500);
 
     }
 
-    public void driveBackward(double distance, double power) {
-
-        //Reset Encoders
-        leftFront.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        rightFront.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        leftFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        rightFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        rightBack.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        leftBack.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-
-        leftFront.setPower(-power);
-        rightFront.setPower(-power);
-        leftBack.setPower(-power);
-        rightBack.setPower(-power);
-
-        while (-rightFront.getCurrentPosition() < distance) {
-            telemetry.addData("Left Encoder", rightFront.getCurrentPosition());
-            telemetry.update();
-        }
-
-        leftFront.setPower(0);
-        rightFront.setPower(0);
-        leftBack.setPower(0);
-        rightBack.setPower(0);
-
-        sleep(500);
-
-    }
-
-    public void strafeRight(double distance, double power) {
-
-        //Reset Encoders
-        leftFront.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        rightFront.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        leftFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        rightFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        rightBack.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        leftBack.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-
-        leftFront.setPower(power);
-        rightFront.setPower(-power);
-        leftBack.setPower(-power);
-        rightBack.setPower(power);
-
-        while (-rightFront.getCurrentPosition() < distance) {
-            telemetry.addData("Left Encoder", rightFront.getCurrentPosition());
-            telemetry.update();
-        }
-
-        leftFront.setPower(0);
-        rightFront.setPower(0);
-        leftBack.setPower(0);
-        rightBack.setPower(0);
-
-        sleep(500);
-
-    }
-
-    public void strafeLeft(double distance, double power) {
-
-        //Reset Encoders
-        leftFront.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        rightFront.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        leftFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        rightFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        rightBack.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        leftBack.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-
-        leftFront.setPower(-power);
-        rightFront.setPower(power);
-        leftBack.setPower(power);
-        rightBack.setPower(-power);
-
-        while (rightFront.getCurrentPosition() < distance) {
-            telemetry.addData("Left Encoder", rightFront.getCurrentPosition());
-            telemetry.update();
-        }
-
-        leftFront.setPower(0);
-        rightFront.setPower(0);
-        leftBack.setPower(0);
-        rightBack.setPower(0);
-
-        sleep(500);
-
-    }
-
-
-
-    public void turnRight(double distance, double power) {
+    public void driveBackward(double distance) {
 
         //Reset Encoders
         leftFront.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -202,10 +95,10 @@ public class BlueDeposit extends LinearOpMode {
         rightBack.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         leftBack.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
-        leftFront.setPower(power);
-        rightFront.setPower(-power);
-        leftBack.setPower(power);
-        rightBack.setPower(-power);
+        leftFront.setPower(-0.5);
+        rightFront.setPower(-0.5);
+        leftBack.setPower(-0.5);
+        rightBack.setPower(-0.5);
 
         while (-rightFront.getCurrentPosition() < distance) {
             telemetry.addData("Left Encoder", rightFront.getCurrentPosition());
@@ -221,7 +114,7 @@ public class BlueDeposit extends LinearOpMode {
 
     }
 
-    public void turnLeft(double distance, double power) {
+    public void strafeRight(double distance) {
 
         //Reset Encoders
         leftFront.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -233,10 +126,41 @@ public class BlueDeposit extends LinearOpMode {
         rightBack.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         leftBack.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
-        leftFront.setPower(-power);
-        rightFront.setPower(power);
-        leftBack.setPower(-power);
-        rightBack.setPower(power);
+        leftFront.setPower(0.5);
+        rightFront.setPower(-0.5);
+        leftBack.setPower(-0.5);
+        rightBack.setPower(0.5);
+
+        while (-rightFront.getCurrentPosition() < distance) {
+            telemetry.addData("Left Encoder", rightFront.getCurrentPosition());
+            telemetry.update();
+        }
+
+        leftFront.setPower(0);
+        rightFront.setPower(0);
+        leftBack.setPower(0);
+        rightBack.setPower(0);
+
+        sleep(500);
+
+    }
+
+    public void strafeLeft(double distance) {
+
+        //Reset Encoders
+        leftFront.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        rightFront.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        leftFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        rightFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        leftBack.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        rightBack.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        rightBack.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        leftBack.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+
+        leftFront.setPower(-0.5);
+        rightFront.setPower(0.5);
+        leftBack.setPower(0.5);
+        rightBack.setPower(-0.5);
 
         while (rightFront.getCurrentPosition() < distance) {
             telemetry.addData("Left Encoder", rightFront.getCurrentPosition());
@@ -251,5 +175,95 @@ public class BlueDeposit extends LinearOpMode {
         sleep(500);
 
     }
+
+
+
+    public void turnRight(double distance) {
+
+        //Reset Encoders
+        leftFront.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        rightFront.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        leftFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        rightFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        leftBack.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        rightBack.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        rightBack.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        leftBack.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+
+        leftFront.setPower(0.5);
+        rightFront.setPower(-0.5);
+        leftBack.setPower(0.5);
+        rightBack.setPower(-0.5);
+
+        while (-rightFront.getCurrentPosition() < (distance - 10)) {
+            telemetry.addData("Left Encoder", rightFront.getCurrentPosition());
+            telemetry.update();
+        }
+
+        //Slowing down to reduce momentum
+        leftFront.setPower(0.1);
+        rightFront.setPower(-0.1);
+        leftBack.setPower(0.1);
+        rightBack.setPower(-0.1);
+
+        while (-rightFront.getCurrentPosition() < distance) {
+            telemetry.addData("Left Encoder", rightFront.getCurrentPosition());
+            telemetry.update();
+        }
+
+        leftFront.setPower(0);
+        rightFront.setPower(0);
+        leftBack.setPower(0);
+        rightBack.setPower(0);
+
+        sleep(500);
+
+    }
+
+    public void turnLeft(double distance) {
+
+        //Reset Encoders
+        leftFront.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        rightFront.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        leftFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        rightFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        leftBack.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        rightBack.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        rightBack.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        leftBack.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+
+        leftFront.setPower(-0.5);
+        rightFront.setPower(0.5);
+        leftBack.setPower(-0.5);
+        rightBack.setPower(0.5);
+
+        while (rightFront.getCurrentPosition() < (distance - 10)) {
+            telemetry.addData("Left Encoder", rightFront.getCurrentPosition());
+            telemetry.update();
+        }
+
+        //Slowing down to reduce momentum
+        leftFront.setPower(-0.1);
+        rightFront.setPower(0.1);
+        leftBack.setPower(-0.1);
+        rightBack.setPower(0.1);
+
+        while (rightFront.getCurrentPosition() < distance) {
+            telemetry.addData("Left Encoder", rightFront.getCurrentPosition());
+            telemetry.update();
+        }
+
+        leftFront.setPower(0);
+        rightFront.setPower(0);
+        leftBack.setPower(0);
+        rightBack.setPower(0);
+
+        sleep(500);
+
+    }
+
+
+
+
 }
 //Aidan was here
