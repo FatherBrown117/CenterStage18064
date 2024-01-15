@@ -31,7 +31,9 @@ package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.hardware.CRServo;
+import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.robotcore.external.hardware.camera.BuiltinCameraDirection;
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
@@ -52,7 +54,20 @@ import java.util.List;
 //@Disabled
 public class BlueLeftAuto extends LinearOpMode {
 
-    BasicAuto obj = new BasicAuto();
+    private DcMotor leftFront = null;
+    private DcMotor rightFront = null;
+    private DcMotor leftRear = null;
+    private DcMotor rightRear = null;
+    private DcMotor rLift = null;
+    private DcMotor lLift = null;
+    //private DcMotor vector = null;
+    private CRServo leftIntake = null;
+    private CRServo rightIntake = null;
+    private CRServo dread = null;
+    private Servo leftPull = null;
+    private Servo rightPull = null;
+    private Servo outtake = null;
+    private CRServo intakein = null;
     private static final boolean USE_WEBCAM = true;  // true for webcam, false for phone camera
 
     // TFOD_MODEL_ASSET points to a model file stored in the project Asset location,
@@ -79,6 +94,37 @@ public class BlueLeftAuto extends LinearOpMode {
     @Override
     public void runOpMode() {
 
+        //hardware mapping
+        leftFront = hardwareMap.get(DcMotor.class,"leftFront"); //frontleft, port 0
+        rightFront = hardwareMap.get(DcMotor.class,"rightFront");  //frontright, port 1
+        leftRear = hardwareMap.get(DcMotor.class,"leftRear"); //backleft, port 3
+        rightRear = hardwareMap.get(DcMotor.class,"rightRear");  //backright, port 2
+        rLift = hardwareMap.get(DcMotor.class,"rLift");
+        lLift = hardwareMap.get(DcMotor.class,"lLift");
+        leftIntake = hardwareMap.get(CRServo.class,"leftIntake");
+        rightIntake = hardwareMap.get(CRServo.class,"rightIntake");
+        intakein = hardwareMap.get(CRServo.class,"intakein");
+        dread = hardwareMap.get(CRServo.class,"dread");
+        //vector = hardwareMap.get(DcMotor.class,"vector");
+        outtake = hardwareMap.get(Servo.class,"outtake");
+
+        rightPull = hardwareMap.get(Servo.class, "rightPull");
+        leftPull = hardwareMap.get(Servo.class, "leftPull");
+
+        rightFront.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        leftFront.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        leftRear.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        rightRear.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+
+        leftFront.setDirection(DcMotor.Direction.REVERSE);
+        rightFront.setDirection(DcMotor.Direction.FORWARD);
+        leftRear.setDirection(DcMotor.Direction.REVERSE);
+        rightRear.setDirection(DcMotor.Direction.REVERSE);
+        rLift.setDirection(DcMotor.Direction.FORWARD);
+        lLift.setDirection(DcMotor.Direction.REVERSE);
+        //vector.setDirection(DcMotor.Direction.FORWARD);
+        //displayKind = Blink.DisplayKind.AUTO;
+
         initTfod();
 
         // Wait for the DS start button to be touched.
@@ -97,36 +143,59 @@ public class BlueLeftAuto extends LinearOpMode {
 
                 if (spikeLocation() == 3) {
 
-                    obj.driveForward(100);
-                    /*obj.turnRight(100);
+                    driveBackward(1105,0.5);
+                    turnLeft(685,0.5);
+                    driveForward(95,0.5);
+                    frontDeposit();
                     //servo drop first pixel, purple
-                    obj.turnLeft(100);
-                    obj.driveBackward(100);
-                    obj.strafeLeft(100);
-                    //servo drop second pixel, yellow
-                    */
+                    //turnLeft(360,0.3);
+                    driveBackward(1735,0.5);
+                    strafeLeft(150,0.6);
+                    //strafeRight(170,0.3);
+                    dreadOut(2000);
+                    backdropDeposit();
+                    dreadIn(500);
+                    driveForward(135,0.5);
+                    strafeRight(1455,0.6);
+                    turnLeft(250,0.6);
+                    driveBackward(235,0.5);
+
 
                 } else if (spikeLocation() == 2) {
 
-                    /*obj.driveForward(100);
-                    //servo drop first pixel, purple
-                    obj.driveBackward(100);
-                    obj.strafeLeft(100);
-                    //servo drop second pixel, yellow
-                    */
+                    driveBackward(990,0.3);
+                    turnRight(1660, 0.3);
+                    frontDeposit();
+                    turnRight(600,0.3);
+                    driveBackward(1775,0.3);
+                    strafeRight(350,0.3);
+                    dreadOut(2500);
+                    backdropDeposit();
+                    dreadIn(1000);
+                    driveForward(200, 0.3);
+                    strafeRight(800, 0.6);
+                    turnLeft(250, 0.3);
+                    driveBackward(300, 0.3);
                     //CODE TO DEPOSIT PRELOAD ON CENTER SPIKE MARK
                     //ORIENT ROBOT
                 } else {
-                    /*obj.driveForward(100);
-                    obj.turnLeft(100);
-                    //servo drop first pixel, purple
-                    obj.turnRight(100);
-                    obj.driveBackward(100);
-                    obj.strafeLeft(100);
-                    //servo drop second pixel, yellow
-                    */
-                    //CODE TO DEPOSIT PRELOAD ON LEFT SPIKE MARK
-                    //ORIENT ROBOT
+                    driveBackward(200,0.4);
+                    turnRight(715,0.3);
+                    driveForward(900,0.4);
+                    turnRight(715,0.3);
+                    driveForward(985,0.4);
+                    turnRight(760,0.3);
+                    driveForward(165,0.4);
+                    frontDeposit();
+                    driveBackward(610,0.4);
+                    strafeRight(850,0.3);
+                    turnLeft(50,0.3);
+                    dreadOut(3000);
+                    backdropDeposit();
+                    dreadIn(1500);
+                    strafeRight(800,0.3);
+                    turnLeft(50,0.3);
+                    driveBackward(300,0.4);
                 }
 
                 //DRIVE ROBOT TO PARK
@@ -138,8 +207,8 @@ public class BlueLeftAuto extends LinearOpMode {
                     visionPortal.resumeStreaming();
                 }
 
-                // Share the CPU.
-                sleep(20);
+
+                sleep(30000);
             }
         }
 
@@ -256,4 +325,228 @@ public class BlueLeftAuto extends LinearOpMode {
 
         return location;
     }
+
+    public void driveForward(double distance, double power) {
+
+        //Reset Encoders
+        leftFront.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        rightFront.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        leftFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        rightFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        leftRear.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        rightRear.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        rightRear.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        leftRear.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+
+        leftFront.setPower(power);
+        rightFront.setPower(power);
+        leftRear.setPower(power);
+        rightRear.setPower(power);
+
+        while (rightFront.getCurrentPosition() < distance) {
+            telemetry.addData("Left Encoder", rightFront.getCurrentPosition());
+            telemetry.update();
+        }
+
+        leftFront.setPower(0);
+        rightFront.setPower(0);
+        leftRear.setPower(0);
+        rightRear.setPower(0);
+
+        sleep(500);
+
+    }
+
+    public void driveBackward(double distance, double power) {
+
+        //Reset Encoders
+        leftFront.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        rightFront.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        leftFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        rightFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        leftRear.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        rightRear.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        rightRear.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        leftRear.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+
+        leftFront.setPower(power * -1);
+        rightFront.setPower(power * -1);
+        leftRear.setPower(power * -1);
+        rightRear.setPower(power * -1);
+
+        while (-rightFront.getCurrentPosition() < distance) {
+            telemetry.addData("Left Encoder", rightFront.getCurrentPosition());
+            telemetry.update();
+        }
+
+        leftFront.setPower(0);
+        rightFront.setPower(0);
+        leftRear.setPower(0);
+        rightRear.setPower(0);
+
+        sleep(500);
+
+    }
+
+    public void strafeRight(double distance, double power) {
+
+        //Reset Encoders
+        leftFront.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        rightFront.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        leftFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        rightFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        leftRear.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        rightRear.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        rightRear.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        leftRear.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+
+        leftFront.setPower(power);
+        rightFront.setPower(power * -1);
+        leftRear.setPower(power * -1);
+        rightRear.setPower(power);
+
+        while (-rightFront.getCurrentPosition() < distance) {
+            telemetry.addData("Left Encoder", rightFront.getCurrentPosition());
+            telemetry.update();
+        }
+
+        leftFront.setPower(0);
+        rightFront.setPower(0);
+        leftRear.setPower(0);
+        rightRear.setPower(0);
+
+        sleep(500);
+
+    }
+
+    public void strafeLeft(double distance, double power) {
+
+        //Reset Encoders
+        leftFront.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        rightFront.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        leftFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        rightFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        leftRear.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        rightRear.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        rightRear.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        leftRear.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+
+        leftFront.setPower(power * -1);
+        rightFront.setPower(power);
+        leftRear.setPower(power);
+        rightRear.setPower(power * -1);
+
+        while (rightFront.getCurrentPosition() < distance) {
+            telemetry.addData("Left Encoder", rightFront.getCurrentPosition());
+            telemetry.update();
+        }
+
+        leftFront.setPower(0);
+        rightFront.setPower(0);
+        leftRear.setPower(0);
+        rightRear.setPower(0);
+
+        sleep(500);
+
+    }
+
+
+
+    public void turnRight(double distance, double power) {
+
+        //Reset Encoders
+        leftFront.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        rightFront.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        leftFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        rightFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        leftRear.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        rightRear.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        rightRear.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        leftRear.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+
+        leftFront.setPower(power);
+        rightFront.setPower(power * -1);
+        leftRear.setPower(power);
+        rightRear.setPower(power * -1);
+
+        while (-rightFront.getCurrentPosition() < distance) {
+            telemetry.addData("Left Encoder", rightFront.getCurrentPosition());
+            telemetry.update();
+        }
+
+        leftFront.setPower(0);
+        rightFront.setPower(0);
+        leftRear.setPower(0);
+        rightRear.setPower(0);
+
+        sleep(500);
+
+    }
+
+    public void turnLeft(double distance, double power) {
+
+        //Reset Encoders
+        leftFront.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        rightFront.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        leftFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        rightFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        leftRear.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        rightRear.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        rightRear.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        leftRear.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+
+        leftFront.setPower(power * -1);
+        rightFront.setPower(power);
+        leftRear.setPower(power * -1);
+        rightRear.setPower(power);
+
+        while (rightFront.getCurrentPosition() < distance) {
+            telemetry.addData("Left Encoder", rightFront.getCurrentPosition());
+            telemetry.update();
+        }
+
+        leftFront.setPower(0);
+        rightFront.setPower(0);
+        leftRear.setPower(0);
+        rightRear.setPower(0);
+
+        sleep(500);
+
+    }
+
+    public void dreadOut(int time) {
+
+        dread.setPower(-1);
+        sleep(time);
+        dread.setPower(0);
+
+        sleep(500);
+
+    }
+
+    public void backdropDeposit() {
+        outtake.setPosition(0);
+        sleep(3000);
+        outtake.setPosition(1);
+        sleep(1000);
+    }
+
+    public void dreadIn(int time) {
+
+        dread.setPower(1);
+        sleep(time);
+        dread.setPower(0);
+
+        sleep(500);
+
+    }
+
+    public void frontDeposit() {
+        rightIntake.setPower(1);
+
+        sleep(1000);
+
+        rightIntake.setPower(0);
+    }
+
 }   // end class

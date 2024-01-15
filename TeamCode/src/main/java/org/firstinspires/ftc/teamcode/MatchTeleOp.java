@@ -18,8 +18,8 @@ public class MatchTeleOp extends LinearOpMode {
 
     private DcMotor leftFront = null;
     private DcMotor rightFront = null;
-    private DcMotor leftBack = null;
-    private DcMotor rightBack = null;
+    private DcMotor leftRear = null;
+    private DcMotor rightRear = null;
     private DcMotor rLift = null;
     private DcMotor lLift = null;
     private CRServo intakein = null;
@@ -69,8 +69,8 @@ public class MatchTeleOp extends LinearOpMode {
 
         leftFront = hardwareMap.get(DcMotor.class,"leftFront"); //frontleft, port 0
         rightFront = hardwareMap.get(DcMotor.class,"rightFront");  //frontright, port 1
-        leftBack = hardwareMap.get(DcMotor.class,"leftBack"); //backleft, port 3
-        rightBack = hardwareMap.get(DcMotor.class,"rightBack");  //backright, port 2
+        leftRear = hardwareMap.get(DcMotor.class,"leftRear"); //backleft, port 3
+        rightRear = hardwareMap.get(DcMotor.class,"rightRear");  //backright, port 2
         rLift = hardwareMap.get(DcMotor.class,"rLift");
         lLift = hardwareMap.get(DcMotor.class,"lLift");
         leftIntake = hardwareMap.get(CRServo.class,"leftIntake");
@@ -84,8 +84,8 @@ public class MatchTeleOp extends LinearOpMode {
 
         leftFront.setDirection(DcMotor.Direction.REVERSE);
         rightFront.setDirection(DcMotor.Direction.FORWARD);
-        leftBack.setDirection(DcMotor.Direction.REVERSE);
-        rightBack.setDirection(DcMotor.Direction.REVERSE);
+        leftRear.setDirection(DcMotor.Direction.REVERSE);
+        rightRear.setDirection(DcMotor.Direction.REVERSE);
         rLift.setDirection(DcMotor.Direction.FORWARD);
         lLift.setDirection(DcMotor.Direction.REVERSE);
         displayKind = Blink.DisplayKind.AUTO;
@@ -159,19 +159,19 @@ public class MatchTeleOp extends LinearOpMode {
             // Output the safe vales to the motor drives.
             leftFront.setPower(left/2);
             rightFront.setPower(right/2);
-            leftBack.setPower(left/2);
-            rightBack.setPower(right/2);
+            leftRear.setPower(left/2);
+            rightRear.setPower(right/2);
 
             if (gamepad1.right_bumper) {
                 leftFront.setPower(-1);
-                leftBack.setPower(1);
+                leftRear.setPower(1);
                 rightFront.setPower(1);
-                rightBack.setPower(-1);
+                rightRear.setPower(-1);
             } else if (gamepad1.left_bumper) {
                 leftFront.setPower(1);
-                leftBack.setPower(-1);
+                leftRear.setPower(-1);
                 rightFront.setPower(-1);
-                rightBack.setPower(1);
+                rightRear.setPower(1);
             }
 
             if (G2A) { // Intake + treadmill going up
