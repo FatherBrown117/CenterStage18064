@@ -162,14 +162,19 @@ public class RedRightAuto extends LinearOpMode {
 
                 } else if (spikeLocation() == 2) {
 
-                    driveBackward(960,0.3);
-                    turnLeft(1625, 0.3);
+                    driveBackward(990,0.3);
+                    turnLeft(1660, 0.3);
                     frontDeposit();
-                    turnLeft(715,0.3);
-                    driveBackward(1575,0.3);
-                    strafeRight(350,0.3);
-                    dreadOut(2000);
+                    turnLeft(600,0.3);
+                    driveBackward(1475,0.3);
+                    strafeRight(700,0.3);
+                    dreadOut(2500);
                     backdropDeposit();
+                    dreadIn(1000);
+                    driveForward(200, 0.3);
+                    strafeLeft(1150, 0.6);
+                    turnLeft(250, 0.3);
+                    driveBackward(300, 0.3);
                     //CODE TO DEPOSIT PRELOAD ON CENTER SPIKE MARK
                     //ORIENT ROBOT
                 } else {

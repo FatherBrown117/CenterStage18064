@@ -164,14 +164,14 @@ public class MatchTeleOp extends LinearOpMode {
 
             if (gamepad1.right_bumper) {
                 leftFront.setPower(-1);
-                leftRear.setPower(1);
+                leftRear.setPower(.8);
                 rightFront.setPower(1);
-                rightRear.setPower(-1);
+                rightRear.setPower(-.8);
             } else if (gamepad1.left_bumper) {
                 leftFront.setPower(1);
-                leftRear.setPower(-1);
+                leftRear.setPower(-.8);
                 rightFront.setPower(-1);
-                rightRear.setPower(1);
+                rightRear.setPower(.8);
             }
 
             if (G2A) { // Intake + treadmill going up
