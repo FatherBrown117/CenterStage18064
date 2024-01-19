@@ -150,8 +150,7 @@ public class BlueLeftAuto extends LinearOpMode {
                     //servo drop first pixel, purple
                     //turnLeft(360,0.3);
                     driveBackward(1735,0.5);
-                    strafeLeft(150,0.6);
-                    //strafeRight(170,0.3);
+                    strafeRight(150,0.6);
                     dreadOut(2000);
                     backdropDeposit();
                     dreadIn(500);
@@ -166,9 +165,9 @@ public class BlueLeftAuto extends LinearOpMode {
                     driveBackward(990,0.3);
                     turnRight(1660, 0.3);
                     frontDeposit();
-                    turnRight(600,0.3);
+                    turnRight(450,0.3);
                     driveBackward(1775,0.3);
-                    strafeRight(350,0.3);
+                    //strafeLeft(350,0.3);
                     dreadOut(2500);
                     backdropDeposit();
                     dreadIn(1000);
@@ -188,8 +187,8 @@ public class BlueLeftAuto extends LinearOpMode {
                     driveForward(165,0.4);
                     frontDeposit();
                     driveBackward(610,0.4);
-                    strafeRight(850,0.3);
-                    turnLeft(50,0.3);
+                    strafeRight(1150,0.3);
+                    turnRight(50,0.3);
                     dreadOut(3000);
                     backdropDeposit();
                     dreadIn(1500);

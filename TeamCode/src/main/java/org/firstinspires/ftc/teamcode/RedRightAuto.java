@@ -167,13 +167,13 @@ public class RedRightAuto extends LinearOpMode {
                     frontDeposit();
                     turnLeft(600,0.3);
                     driveBackward(1475,0.3);
-                    strafeRight(700,0.3);
-                    dreadOut(2500);
+                    //strafeRight(700,0.3);
+                    dreadOut(3000);
                     backdropDeposit();
-                    dreadIn(1000);
+                    dreadIn(1500);
                     driveForward(200, 0.3);
                     strafeLeft(1150, 0.6);
-                    turnLeft(250, 0.3);
+                    //turnLeft(250, 0.3);
                     driveBackward(300, 0.3);
                     //CODE TO DEPOSIT PRELOAD ON CENTER SPIKE MARK
                     //ORIENT ROBOT
@@ -185,14 +185,14 @@ public class RedRightAuto extends LinearOpMode {
                     //servo drop first pixel, purple
                     //turnLeft(360,0.3);
                     driveBackward(1735,0.5);
-                    strafeRight(135,0.6);
+                    strafeRight(185,0.6);
                     //strafeRight(170,0.3);
                     dreadOut(2500);
                     backdropDeposit();
                     dreadIn(1000);
                     driveForward(135,0.5);
                     strafeLeft(1455,0.6);
-                    turnRight(250,0.6);
+                    //turnRight(250,0.6);
                     driveBackward(235,0.5);
 
                     //CODE TO DEPOSIT PRELOAD ON LEFT SPIKE MARK
