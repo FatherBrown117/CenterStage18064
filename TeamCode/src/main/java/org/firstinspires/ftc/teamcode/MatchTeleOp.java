@@ -191,7 +191,7 @@ public class MatchTeleOp extends LinearOpMode {
             }
 
             if (G2back) {
-                leftPull.setPosition(0.5);
+                leftPull.setPosition(0.5); //plan to break into multiple steps
                 sleep(1000);
                 drone.setPower(-1);
                 sleep(500);
