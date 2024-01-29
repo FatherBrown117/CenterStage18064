@@ -23,17 +23,19 @@ public class RoadRunnerTest extends LinearOpMode {
     private Servo leftPull = null;
     private Servo rightPull = null;
 
+    MecanumDrive drive = new MecanumDrive(hardwareMap, new Pose2d(0, 0, 0));
+
+    /*Trajectory myTrajectory = drive.trajectoryBuilder(new Pose2d(0,0,0))
+            .strafeRight(10)
+            .forward(5)
+            .build();
+    */
     @Override
     public void runOpMode() throws InterruptedException {
 
-        MecanumDrive drive = new MecanumDrive(hardwareMap, new Pose2d(0, 0, 0));
 
-       /* Trajectory myTrajectory = drive.trajectoryBuilder(new Pose2d(0,0,0))
-                .strafeRight(10)
-                .forward(5)
-                .build();
 
-        */
+
         waitForStart();
         while(opModeIsActive()) {
             //drive.FollowTrajectoryAction(myTrajectory);

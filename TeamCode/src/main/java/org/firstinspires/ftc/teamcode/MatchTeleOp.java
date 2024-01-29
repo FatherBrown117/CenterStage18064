@@ -164,14 +164,14 @@ public class MatchTeleOp extends LinearOpMode {
 
             if (gamepad1.right_bumper) {
                 leftFront.setPower(-1);
-                leftRear.setPower(1);
+                leftRear.setPower(.8);
                 rightFront.setPower(1);
-                rightRear.setPower(-1);
+                rightRear.setPower(-.8);
             } else if (gamepad1.left_bumper) {
                 leftFront.setPower(1);
-                leftRear.setPower(-1);
+                leftRear.setPower(-.8);
                 rightFront.setPower(-1);
-                rightRear.setPower(1);
+                rightRear.setPower(.8);
             }
 
             if (G2A) { // Intake + treadmill going up
@@ -191,7 +191,7 @@ public class MatchTeleOp extends LinearOpMode {
             }
 
             if (G2back) {
-                leftPull.setPosition(0.5);
+                leftPull.setPosition(0.5); //plan to break into multiple steps
                 sleep(1000);
                 drone.setPower(-1);
                 sleep(500);

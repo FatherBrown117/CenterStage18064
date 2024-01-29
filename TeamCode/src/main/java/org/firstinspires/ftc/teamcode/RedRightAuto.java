@@ -52,7 +52,7 @@ import java.util.List;
  */
 @Autonomous(name = "RedRightAuto", group = "Concept")
 //@Disabled
-public class     RedRightAuto extends LinearOpMode {
+public class RedRightAuto extends LinearOpMode {
 
     private DcMotor leftFront = null;
     private DcMotor rightFront = null;
@@ -142,39 +142,57 @@ public class     RedRightAuto extends LinearOpMode {
 
                 if (spikeLocation() == 3) {
 
-                    /*driveForward(100,0.3);
-                    turnRight(100,0.3);
-                    //servo drop first pixel, purple
-                    turnLeft(100,0.3);
-                    driveBackward(100,0.3);
-                    strafeRight(100,0.3);
-                    //servo drop second pixel, yellow
-                    */
+                    driveBackward(200,0.4);
+                    turnLeft(685,0.3);
+                    driveForward(900,0.4);
+                    turnLeft(685,0.3);
+                    driveForward(1200,0.4);
+                    turnLeft(700,0.3);
+                    driveForward(135,0.4);
+                    frontDeposit();
+                    driveBackward(420,0.4);
+                    strafeLeft(850,0.3);
+                    turnRight(50,0.3);
+                    dreadOut(3000);
+                    backdropDeposit();
+                    dreadIn(1500);
+                    strafeLeft(800,0.3);
+                    turnRight(50,0.3);
+                    driveBackward(300,0.4);
 
                 } else if (spikeLocation() == 2) {
 
-                    driveBackward(950,0.3);
-                    turnLeft(1625, 0.3);
+                    driveBackward(990,0.3);
+                    turnLeft(1660, 0.3);
                     frontDeposit();
-                    turnLeft(715,0.3);
-                    driveBackward(1600,0.3);
+                    turnLeft(600,0.3);
+                    driveBackward(1475,0.3);
+                    //strafeRight(700,0.3);
+                    dreadOut(3000);
+                    backdropDeposit();
+                    dreadIn(1500);
+                    driveForward(200, 0.3);
+                    strafeLeft(1150, 0.6);
+                    //turnLeft(250, 0.3);
+                    driveBackward(300, 0.3);
                     //CODE TO DEPOSIT PRELOAD ON CENTER SPIKE MARK
                     //ORIENT ROBOT
                 } else {
-                    driveBackward(1185,0.5);
+                    driveBackward(1255,0.5);
                     turnRight(685,0.5);
                     driveForward(135,0.5);
                     frontDeposit();
                     //servo drop first pixel, purple
                     //turnLeft(360,0.3);
                     driveBackward(1735,0.5);
-                    strafeRight(135,0.6);
+                    strafeRight(185,0.6);
                     //strafeRight(170,0.3);
                     dreadOut(2500);
                     backdropDeposit();
                     dreadIn(1000);
                     driveForward(135,0.5);
-                    strafeLeft(1385,0.6);
+                    strafeLeft(1455,0.6);
+                    //turnRight(250,0.6);
                     driveBackward(235,0.5);
 
                     //CODE TO DEPOSIT PRELOAD ON LEFT SPIKE MARK
@@ -259,7 +277,7 @@ public class     RedRightAuto extends LinearOpMode {
         visionPortal = builder.build();
 
         // Set confidence threshold for TFOD recognitions, at any time.
-        tfod.setMinResultConfidence(0.75f);
+        //tfod.setMinResultConfidence(0.75f);
 
         // Disable or re-enable the TFOD processor at any time.
         //visionPortal.setProcessorEnabled(tfod, true);
